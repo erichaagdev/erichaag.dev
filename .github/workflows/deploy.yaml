@@ -30,4 +30,5 @@ jobs:
       - name: Deploy
         run: firebase deploy --project "$FIREBASE_PROJECT" --token "$FIREBASE_TOKEN"
         env:
+          FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
