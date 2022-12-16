@@ -25,13 +25,14 @@ hugo = false
 title = "Eric Haag"
 
 [params.home.profile]
+avatarURL = "/images/avatar.png"
 subtitle = "Senior Software Engineer at Gradle, Inc."
 
 [params.social]
+Email = "eah0592@gmail.com"
 GitHub = "https://github.com/erichaagdev"
 Linkedin = "https://www.linkedin.com/in/erichaagdev"
 Twitter = "https://twitter.com/erichaagdev"
-Email = "eah0592@gmail.com"
 
 [params.page.share]
 HackerNews = false
