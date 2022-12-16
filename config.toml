@@ -1,4 +1,41 @@
 baseURL = 'http://example.org/'
+enableGitInfo = true
 languageCode = 'en-us'
-title = 'My New Hugo Site'
 theme = 'LoveIt'
+title = 'Eric Haag'
+
+[author]
+email = "eah0592@gmail.com"
+link = "https://github.com/erichaagdev"
+name = "Eric Haag"
+
+[params]
+dateFormat = "Jan 02, 2006"
+description = "Senior Software Engineer at Gradle, Inc."
+gitRepo = "https://github.com/erichaagdev/erichaag.dev"
+title = "Eric Haag"
+
+[params.header.title]
+name = "Eric Haag"
+
+[params.footer]
+hugo = false
+
+[params.app]
+title = "Eric Haag"
+
+[params.home.profile]
+subtitle = "Senior Software Engineer at Gradle, Inc."
+
+[params.social]
+GitHub = "https://github.com/erichaagdev"
+Linkedin = "https://www.linkedin.com/in/erichaagdev"
+Twitter = "https://twitter.com/erichaagdev"
+Email = "eah0592@gmail.com"
+
+[params.page.share]
+HackerNews = false
+Line = false
+Linkedin = true
+Reddit = true
+Weibo = false
