@@ -3,6 +3,7 @@ enableGitInfo = true
 languageCode = 'en-us'
 theme = 'LoveIt'
 title = 'Eric Haag'
+googleAnalytics = "G-HQ6GQ1GRQR"
 
 [author]
 email = "eah0592@gmail.com"
@@ -40,3 +41,9 @@ Line = false
 Linkedin = true
 Reddit = true
 Weibo = false
+
+[params.analytics]
+enable = true
+
+[params.analytics.google]
+id = "G-HQ6GQ1GRQR"
