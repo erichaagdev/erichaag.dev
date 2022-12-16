@@ -31,9 +31,9 @@ subtitle = "Senior Software Engineer at Gradle, Inc."
 
 [params.social]
 Email = "eah0592@gmail.com"
-GitHub = "https://github.com/erichaagdev"
-Linkedin = "https://www.linkedin.com/in/erichaagdev"
-Twitter = "https://twitter.com/erichaagdev"
+GitHub = "erichaagdev"
+Linkedin = "erichaagdev"
+Twitter = "erichaagdev"
 
 [params.page.share]
 HackerNews = false
