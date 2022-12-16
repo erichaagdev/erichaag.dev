@@ -27,6 +27,6 @@ jobs:
       - name: Build
         run: hugo
       - name: Deploy
-        run: firebase deploy --token $FIREBASE_TOKEN
+        run: firebase deploy --project "$FIREBASE_PROJECT" --token "$FIREBASE_TOKEN"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
