@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://erichaag.dev/'
 enableGitInfo = true
 languageCode = 'en-us'
 theme = 'LoveIt'
