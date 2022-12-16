@@ -19,7 +19,7 @@ jobs:
       - name: Setup Firebase
         uses: pocket-apps/action-setup-firebase@v2
         with:
-          firebase-token: ${{ secrets.FIREBASE_TOKEN }}
+          firebase-token: <unused>
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
@@ -31,4 +31,4 @@ jobs:
         run: firebase deploy --project "$FIREBASE_PROJECT"
         env:
           FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
