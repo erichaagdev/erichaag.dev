@@ -1,0 +1,15 @@
+name: Setup Hugo
+description: Sets up Hugo
+inputs:
+  version:
+    description: The version of Hugo to install
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        curl -sL --create-dirs -o "${RUNNER_TEMP}/hugo/${{ inputs.version }}/hugo.tar.gz" "https://github.com/gohugoio/hugo/releases/download/v${{ inputs.version }}/hugo_extended_${{ inputs.version }}_linux-amd64.tar.gz"
+        mkdir -p "${HOME}/bin/hugo/${{ inputs.version }}"
+        (cd "${HOME}/bin/hugo/${{ inputs.version }}" && tar -xvf "${RUNNER_TEMP}/hugo/${{ inputs.version }}/hugo.tar.gz" hugo && chmod +x hugo)
+        echo "${HOME}/bin/hugo/${{ inputs.version }}" >> $GITHUB_PATH
