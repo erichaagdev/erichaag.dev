@@ -14,6 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
       - name: Setup Firebase
         run: wget -q -O firebase https://github.com/firebase/firebase-tools/releases/download/v11.18.0/firebase-tools-linux && chmod +x firebase
       - name: Setup Hugo
@@ -24,4 +28,3 @@ jobs:
         run: ./firebase deploy --project "$FIREBASE_PROJECT"
         env:
           FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}

@@ -25,3 +25,6 @@ firebase
 
 # Archives
 hugo.tar.gz
+
+# GitHub Actions
+gha-creds-*.json
