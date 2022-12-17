@@ -22,7 +22,14 @@ jobs:
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+      - name: Cache Firebase
+        id: cache-firebase
+        uses: actions/cache@v3
+        with:
+          path: ~/bin/firebase/${{ env.FIREBASE_VERSION }}
+          key: ${{ runner.os }}-${{ env.FIREBASE_VERSION }}-firebase
       - name: Setup Firebase
+        if: steps.cache-firebase.outputs.cache-hit != 'true'
         run: |
           curl -sL --create-dirs -o "${HOME}/bin/firebase/${FIREBASE_VERSION}/firebase" "https://github.com/firebase/firebase-tools/releases/download/v${FIREBASE_VERSION}/firebase-tools-linux"
           chmod +x "${HOME}/bin/firebase/${FIREBASE_VERSION}/firebase"
