@@ -18,3 +18,10 @@ hugo.linux
 # Firebase
 .firebase
 .firebaserc
+
+# Binaries
+hugo
+firebase
+
+# Archives
+hugo.tar.gz
