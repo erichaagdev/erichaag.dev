@@ -19,12 +19,5 @@ hugo.linux
 .firebase
 .firebaserc
 
-# Binaries
-hugo
-firebase
-
-# Archives
-hugo.tar.gz
-
 # GitHub Actions
 gha-creds-*.json

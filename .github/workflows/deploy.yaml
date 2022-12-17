@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  FIREBASE_VERSION: 11.18.0
+  HUGO_VERSION: 0.108.0
+
 jobs:
   build_deploy:
     name: Build & deploy
@@ -19,12 +23,19 @@ jobs:
         with:
           credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
       - name: Setup Firebase
-        run: wget -q -O firebase https://github.com/firebase/firebase-tools/releases/download/v11.18.0/firebase-tools-linux && chmod +x firebase
+        run: |
+          curl -sL --create-dirs -o "${HOME}/bin/firebase/${FIREBASE_VERSION}/firebase" "https://github.com/firebase/firebase-tools/releases/download/v${FIREBASE_VERSION}/firebase-tools-linux"
+          chmod +x "${HOME}/bin/firebase/${FIREBASE_VERSION}/firebase"
+          echo "${HOME}/bin/firebase/${FIREBASE_VERSION}" >> $GITHUB_PATH
       - name: Setup Hugo
-        run: wget -q -O hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_linux-amd64.tar.gz && tar -xvf hugo.tar.gz hugo && chmod +x hugo && rm hugo.tar.gz
+        run: |
+          curl -sL --create-dirs -o "${RUNNER_TEMP}/hugo/${HUGO_VERSION}/hugo.tar.gz" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          mkdir -p "${HOME}/bin/hugo/${HUGO_VERSION}"
+          (cd "${HOME}/bin/hugo/${HUGO_VERSION}" && tar -xvf "${RUNNER_TEMP}/hugo/${HUGO_VERSION}/hugo.tar.gz" hugo && chmod +x hugo)
+          echo "${HOME}/bin/hugo/${HUGO_VERSION}" >> $GITHUB_PATH
       - name: Build
-        run: ./hugo
+        run: hugo
       - name: Deploy
-        run: ./firebase deploy --project "$FIREBASE_PROJECT"
+        run: firebase deploy --project "${FIREBASE_PROJECT}"
         env:
           FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
