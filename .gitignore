@@ -13,7 +13,7 @@ hugo.darwin
 hugo.linux
 
 # Temporary lock file while building
-/.hugo_build.lock
+.hugo_build.lock
 
 # Firebase
 .firebase
@@ -21,3 +21,7 @@ hugo.linux
 
 # GitHub Actions
 gha-creds-*.json
+
+# Gradle
+.gradle
+build
