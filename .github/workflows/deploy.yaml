@@ -28,18 +28,19 @@ jobs:
         with:
           path: ~/bin/firebase/${{ env.FIREBASE_VERSION }}
           key: ${{ runner.os }}-${{ env.FIREBASE_VERSION }}-firebase
-      - name: Setup Firebase
+      - name: Install Firebase
         if: steps.cache-firebase.outputs.cache-hit != 'true'
         run: |
-          curl -sL --create-dirs -o "${HOME}/bin/firebase/${FIREBASE_VERSION}/firebase" "https://github.com/firebase/firebase-tools/releases/download/v${FIREBASE_VERSION}/firebase-tools-linux"
-          chmod +x "${HOME}/bin/firebase/${FIREBASE_VERSION}/firebase"
-          echo "${HOME}/bin/firebase/${FIREBASE_VERSION}" >> $GITHUB_PATH
+          curl -sL --create-dirs -o "~/bin/firebase/${FIREBASE_VERSION}/firebase" "https://github.com/firebase/firebase-tools/releases/download/v${FIREBASE_VERSION}/firebase-tools-linux"
+          chmod +x "~/bin/firebase/${FIREBASE_VERSION}/firebase"
+      - name: Setup Firebase
+        run: echo "~/bin/firebase/${FIREBASE_VERSION}" >> $GITHUB_PATH
       - name: Setup Hugo
         run: |
           curl -sL --create-dirs -o "${RUNNER_TEMP}/hugo/${HUGO_VERSION}/hugo.tar.gz" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
-          mkdir -p "${HOME}/bin/hugo/${HUGO_VERSION}"
-          (cd "${HOME}/bin/hugo/${HUGO_VERSION}" && tar -xvf "${RUNNER_TEMP}/hugo/${HUGO_VERSION}/hugo.tar.gz" hugo && chmod +x hugo)
-          echo "${HOME}/bin/hugo/${HUGO_VERSION}" >> $GITHUB_PATH
+          mkdir -p "~/bin/hugo/${HUGO_VERSION}"
+          (cd "~/bin/hugo/${HUGO_VERSION}" && tar -xvf "${RUNNER_TEMP}/hugo/${HUGO_VERSION}/hugo.tar.gz" hugo && chmod +x hugo)
+          echo "~/bin/hugo/${HUGO_VERSION}" >> $GITHUB_PATH
       - name: Build
         run: hugo
       - name: Deploy
