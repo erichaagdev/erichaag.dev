@@ -2,6 +2,10 @@ plugins {
   `kotlin-dsl`
 }
 
+dependencies {
+  implementation(project(":common"))
+}
+
 gradlePlugin {
   plugins {
     create("hugo") {

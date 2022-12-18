@@ -1,7 +1,6 @@
-package dev.erichaag.hugo
+package dev.erichaag.firebase
 
 import dev.erichaag.common.CopyTask
-import org.gradle.api.file.ArchiveOperations
 import org.gradle.api.file.Directory
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.ProjectLayout
@@ -14,28 +13,28 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import javax.inject.Inject
 
-abstract class HugoInstall @Inject constructor(
-  private val archiveOperations: ArchiveOperations,
+abstract class FirebaseInstall @Inject constructor(
   projectLayout: ProjectLayout,
-) : CopyTask, AbstractHugoTask() {
+) : CopyTask, AbstractFirebaseTask() {
 
   companion object {
-    private const val HUGO_BINARY_NAME = "hugo"
+    private const val FIREBASE_BINARY_NAME = "firebase"
   }
 
   @get:InputFiles
   abstract val fromConfiguration: Property<FileCollection>
 
   @get:Internal
-  val intoDirectory: Provider<Directory> = projectLayout.buildDirectory.dir("bin/hugo")
+  val intoDirectory: Provider<Directory> = projectLayout.buildDirectory.dir("bin/firebase")
 
   @get:OutputFile
-  val binary: Provider<RegularFile> = intoDirectory.map { it.file(HUGO_BINARY_NAME) }
+  val binary: Provider<RegularFile> = intoDirectory.map { it.file(FIREBASE_BINARY_NAME) }
 
   @TaskAction
   fun action() = copy {
-    from(archiveOperations.tarTree(fromConfiguration.get().singleFile))
-    include(HUGO_BINARY_NAME)
+    from(fromConfiguration.get().singleFile)
+    rename { FIREBASE_BINARY_NAME }
+    eachFile { mode = 508 }
     into(intoDirectory)
   }
 }

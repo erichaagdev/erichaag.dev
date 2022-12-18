@@ -1,18 +1,19 @@
 package dev.erichaag.hugo
 
+import dev.erichaag.common.ExecTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.TaskAction
 
-abstract class HugoServe : AbstractHugoExecTask() {
+abstract class HugoServe : ExecTask, AbstractHugoTask() {
 
   @get:InputDirectory
-  abstract val source: DirectoryProperty
+  abstract val sourceDirectory: DirectoryProperty
 
   @TaskAction
-  fun action() = exec {
-    commandLine(hugo.path, "serve")
-    args("--source", source.path)
+  fun action() = binaryExec {
+    args("serve")
+    args("--source", sourceDirectory.path)
     args("--disableFastRender")
   }
 }

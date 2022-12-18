@@ -1,4 +1,4 @@
-package dev.erichaag.hugo
+package dev.erichaag.common
 
 import org.gradle.api.Action
 import org.gradle.api.file.FileSystemLocationProperty
@@ -11,17 +11,20 @@ import org.gradle.process.ExecResult
 import org.gradle.process.ExecSpec
 import javax.inject.Inject
 
-abstract class AbstractHugoExecTask : AbstractHugoTask() {
+interface ExecTask {
 
   @get:InputFile
   @get:PathSensitive(PathSensitivity.RELATIVE)
-  abstract val hugo: RegularFileProperty
+  val binary: RegularFileProperty
 
   @get:Inject
-  abstract val execOperations: ExecOperations
+  val execOperations: ExecOperations
 
-  protected fun exec(action: Action<ExecSpec>): ExecResult = execOperations.exec(action).assertNormalExitValue()
+  fun binaryExec(action: Action<ExecSpec>): ExecResult = execOperations.exec {
+    it.commandLine(binary.path)
+    action.execute(it)
+  }.assertNormalExitValue()
 
-  protected val FileSystemLocationProperty<*>.path: String
+  val FileSystemLocationProperty<*>.path: String
     get() = get().asFile.path
 }

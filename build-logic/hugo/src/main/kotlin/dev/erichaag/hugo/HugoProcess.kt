@@ -1,5 +1,6 @@
 package dev.erichaag.hugo
 
+import dev.erichaag.common.CopyTask
 import org.gradle.api.file.ArchiveOperations
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
@@ -16,17 +17,17 @@ import javax.inject.Inject
 
 abstract class HugoProcess @Inject constructor(
   private val archiveOperations: ArchiveOperations
-) : AbstractHugoCopyTask() {
+) : CopyTask, AbstractHugoTask() {
 
   @get:InputFiles
   @get:IgnoreEmptyDirectories
   @get:PathSensitive(PathSensitivity.RELATIVE)
-  abstract val source: ConfigurableFileCollection
+  abstract val sourceFiles: ConfigurableFileCollection
 
   @get:InputFiles
   @get:IgnoreEmptyDirectories
   @get:PathSensitive(PathSensitivity.RELATIVE)
-  abstract val theme: Property<FileCollection>
+  abstract val themeConfiguration: Property<FileCollection>
 
   @get:Input
   abstract val themeName: Property<String>
@@ -37,11 +38,11 @@ abstract class HugoProcess @Inject constructor(
   @TaskAction
   fun action() {
     copy {
-      from(source)
+      from(sourceFiles)
       into(outputDirectory)
     }
     copy {
-      val themeFile = theme.get().singleFile
+      val themeFile = themeConfiguration.get().singleFile
       from(archiveOperations.tarTree(themeFile))
       exclude("pax_global_header")
       into(outputDirectory.dir("themes"))

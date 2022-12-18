@@ -1,5 +1,6 @@
 package dev.erichaag.hugo
 
+import dev.erichaag.common.ExecTask
 import org.gradle.api.file.ConfigurableFileTree
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
@@ -13,24 +14,23 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
-abstract class HugoBuild : AbstractHugoExecTask() {
+abstract class HugoBuild : ExecTask, AbstractHugoTask() {
 
   @get:InputFiles
   @get:IgnoreEmptyDirectories
   @get:PathSensitive(PathSensitivity.RELATIVE)
-  abstract val source: ConfigurableFileTree
+  abstract val sourceFiles: ConfigurableFileTree
 
   @get:Input
   abstract val buildDrafts: Property<Boolean>
 
   @get:OutputDirectory
-  abstract val destination: DirectoryProperty
+  abstract val publicDirectory: DirectoryProperty
 
   @TaskAction
-  fun action() = exec {
-    commandLine(hugo.path)
-    args("--source", source.dir.path)
-    args("--destination", destination.path)
+  fun action() = binaryExec {
+    args("--source", sourceFiles.dir.path)
+    args("--destination", publicDirectory.path)
     args("--noBuildLock")
     args("--minify")
     if (buildDrafts.get()) args("--buildDrafts")
