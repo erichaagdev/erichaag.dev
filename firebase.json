@@ -1,5 +1,5 @@
 {
   "hosting": {
-    "public": "public"
+    "public": "site/build/hugo/public"
   }
 }
