@@ -1,10 +1,6 @@
 # IDE
 .idea
 
-# Firebase
-.firebase
-.firebaserc
-
 # GitHub Actions
 gha-creds-*.json
 

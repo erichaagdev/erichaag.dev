@@ -25,3 +25,9 @@ jobs:
 
       - name: Build site
         run: ./gradlew deployFirebase
+
+      - name: Upload configuration cache report
+        uses: actions/upload-artifact@v3
+        with:
+          name: configuration-cache-report
+          path: build/reports/configuration-cache/**/configuration-cache-report.html
