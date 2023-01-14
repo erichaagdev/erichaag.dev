@@ -23,11 +23,9 @@ dependencies {
   hugo("gohugoio:hugo:0.109.0@tar.gz")
 }
 
-val buildHugo = tasks.named("hugoBuild", HugoBuild::class)
-
 firebase {
   projectName.set("erichaagdev")
-  publicDirectory.set(buildHugo.flatMap { it.publicDirectory })
+  publicDirectory.set(tasks.named("hugoBuild", HugoBuild::class).flatMap { it.publicDirectory })
 }
 
 hugo {
