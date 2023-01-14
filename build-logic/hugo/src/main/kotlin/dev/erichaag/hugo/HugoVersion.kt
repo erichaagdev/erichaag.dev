@@ -1,12 +1,14 @@
 package dev.erichaag.hugo
 
-import dev.erichaag.common.ExecTask
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.UntrackedTask
 
-abstract class HugoVersion : ExecTask, AbstractHugoTask() {
+@Suppress("UnstableApiUsage")
+@UntrackedTask(because = "Not worth tracking")
+abstract class HugoVersion : HugoExecTask() {
 
   @TaskAction
-  fun action() = binaryExec {
+  fun action() = hugoExec {
     args("version")
   }
 }

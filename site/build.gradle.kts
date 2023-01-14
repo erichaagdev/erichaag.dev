@@ -1,5 +1,4 @@
 import dev.erichaag.hugo.HugoBuild
-import dev.erichaag.hugo.HugoProcess
 
 plugins {
   id("dev.erichaag.hugo")
@@ -19,20 +18,19 @@ repositories {
   }
 }
 
-val hugoTheme: Configuration by configurations.creating
-
 dependencies {
   hugoTheme("dillonzq:LoveIt:0.2.11@tar.gz")
+  hugo("gohugoio:hugo:0.109.0@tar.gz")
 }
 
-val buildHugo = tasks.named("buildHugo", HugoBuild::class)
+val buildHugo = tasks.named("hugoBuild", HugoBuild::class)
 
 firebase {
   projectName.set("erichaagdev")
   publicDirectory.set(buildHugo.flatMap { it.publicDirectory })
 }
 
-tasks.named<HugoProcess>("processHugo") {
-  themeConfiguration.set(hugoTheme)
+hugo {
+  releasesRepository()
   themeName.set("LoveIt")
 }
