@@ -1,3 +1,5 @@
+# Theme documentation: https://hugoloveit.com/theme-documentation-basics/#3-configuration
+
 baseURL = "https://erichaag.dev/"
 enableGitInfo = true
 languageCode = "en-us"
@@ -26,7 +28,7 @@ url = "https://github.com/erichaagdev/erichaag.dev"
 
 [params]
 dateFormat = "Jan 02, 2006"
-description = "Senior Software Engineer at Gradle, Inc."
+description = "Developer Productivity Engineering advocate with a passion for Java, Kotlin, Spring Boot, and Gradle."
 gitRepo = "https://github.com/erichaagdev/erichaag.dev"
 title = "Eric Haag"
 
@@ -41,7 +43,8 @@ title = "Eric Haag"
 
 [params.home.profile]
 avatarURL = "/images/avatar.png"
-subtitle = "Senior Software Engineer at Gradle, Inc."
+subtitle = "Developer Productivity Engineering advocate with a passion for Java, Kotlin, Spring Boot, and Gradle."
+typeit = false
 
 [params.section]
 dateFormat = "Jan 02"
