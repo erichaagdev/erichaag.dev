@@ -21,6 +21,9 @@ abstract class HugoBuild : AbstractHugoExecTask() {
   abstract val sourceFiles: ConfigurableFileTree
 
   @get:Input
+  abstract val themeName: Property<String>
+
+  @get:Input
   abstract val buildDrafts: Property<Boolean>
 
   @get:OutputDirectory
@@ -32,6 +35,7 @@ abstract class HugoBuild : AbstractHugoExecTask() {
     args("--destination", publicDirectory.get().asFile.path)
     args("--noBuildLock")
     args("--minify")
+    args("--theme", themeName.get())
     if (buildDrafts.get()) args("--buildDrafts")
   }
 }

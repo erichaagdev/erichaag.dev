@@ -3,7 +3,6 @@
 baseURL = "https://erichaag.dev/"
 enableGitInfo = true
 languageCode = "en-us"
-theme = "LoveIt"
 title = "Eric Haag"
 googleAnalytics = "G-HQ6GQ1GRQR"
 

@@ -1,10 +1,15 @@
 package dev.erichaag.hugo
 
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.TaskAction
 
 abstract class HugoServe : AbstractHugoExecTask() {
+
+  @get:Input
+  abstract val themeName: Property<String>
 
   @get:InputDirectory
   abstract val sourceDirectory: DirectoryProperty
@@ -14,5 +19,6 @@ abstract class HugoServe : AbstractHugoExecTask() {
     args("serve")
     args("--source", sourceDirectory.get().asFile.path)
     args("--disableFastRender")
+    args("--theme", themeName.get())
   }
 }

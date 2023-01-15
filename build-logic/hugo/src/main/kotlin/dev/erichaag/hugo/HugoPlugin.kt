@@ -75,25 +75,27 @@ class HugoPlugin : Plugin<Project> {
     val hugoConfiguration = configurations.named(HUGO_CONFIGURATION_NAME)
 
     val processHugo = tasks.register<HugoProcess>("hugoProcess") {
-      sourceFiles.from(hugoExtension.sourceDirectory)
       outputDirectory.set(hugoExtension.processDirectory)
+      sourceFiles.from(hugoExtension.sourceDirectory)
       theme.set(hugoExtension.theme)
       themeName.set(hugoExtension.themeName)
     }
 
     val buildHugo = tasks.register<HugoBuild>("hugoBuild") {
       dependsOn(processHugo, hugoConfiguration)
-      hugo.set(hugoConfiguration)
       buildDrafts.set(hugoExtension.buildDrafts)
-      sourceFiles.setDir(processHugo.flatMap { it.outputDirectory })
-      sourceFiles.exclude("resources")
+      hugo.set(hugoConfiguration)
       publicDirectory.set(hugoExtension.publicDirectory)
+      sourceFiles.exclude("resources")
+      sourceFiles.setDir(processHugo.flatMap { it.outputDirectory })
+      themeName.set(hugoExtension.themeName)
     }
 
     tasks.register<HugoServe>("hugoServe") {
       dependsOn(hugoConfiguration)
       hugo.set(hugoConfiguration)
       sourceDirectory.set(processHugo.flatMap { it.outputDirectory })
+      themeName.set(hugoExtension.themeName)
     }
 
     tasks.register<HugoVersion>("hugoVersion") {
