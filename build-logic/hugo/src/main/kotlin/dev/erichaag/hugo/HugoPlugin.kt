@@ -103,6 +103,12 @@ class HugoPlugin : Plugin<Project> {
       hugo.set(hugoConfiguration)
     }
 
+    tasks.register<HugoNew>("hugoNew") {
+      dependsOn(hugoConfiguration)
+      hugo.set(hugoConfiguration)
+      sourceFiles.setDir(hugoExtension.sourceDirectory)
+    }
+
     tasks.named(LifecycleBasePlugin.BUILD_TASK_NAME) {
       dependsOn(buildHugo)
     }
