@@ -1,8 +1,7 @@
-import dev.erichaag.hugo.HugoBuild
-
 plugins {
   id("dev.erichaag.firebase")
   id("dev.erichaag.hugo")
+  id("dev.erichaag.hugo-firebase-conventions")
 }
 
 repositories {
@@ -27,7 +26,6 @@ dependencies {
 firebase {
   releasesRepository()
   projectName.set("erichaagdev")
-  publicDirectory.set(tasks.named("hugoBuild", HugoBuild::class).flatMap { it.publicDirectory })
 }
 
 hugo {
