@@ -57,6 +57,9 @@ GitHub = "erichaagdev"
 Linkedin = "erichaagdev"
 Twitter = "erichaagdev"
 
+[params.page.toc]
+auto = false
+
 [params.page.share]
 HackerNews = false
 Line = false
