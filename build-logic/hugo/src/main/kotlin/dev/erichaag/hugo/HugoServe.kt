@@ -4,7 +4,7 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.TaskAction
 
-abstract class HugoServe : HugoExecTask() {
+abstract class HugoServe : AbstractHugoExecTask() {
 
   @get:InputDirectory
   abstract val sourceDirectory: DirectoryProperty

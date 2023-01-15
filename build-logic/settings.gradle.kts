@@ -5,7 +5,6 @@ dependencyResolutionManagement {
   }
 }
 
-include("common")
 include("firebase")
 include("hugo")
 

@@ -18,7 +18,7 @@ import javax.inject.Inject
 abstract class HugoProcess @Inject constructor(
   private val archiveOperations: ArchiveOperations,
   private val fileSystemOperations: FileSystemOperations,
-) : HugoTask() {
+) : AbstractHugoTask() {
 
   @get:InputFiles
   @get:IgnoreEmptyDirectories

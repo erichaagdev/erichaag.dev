@@ -1,8 +1,8 @@
 import dev.erichaag.hugo.HugoBuild
 
 plugins {
-  id("dev.erichaag.hugo")
   id("dev.erichaag.firebase")
+  id("dev.erichaag.hugo")
 }
 
 repositories {
@@ -19,11 +19,13 @@ repositories {
 }
 
 dependencies {
-  hugoTheme("dillonzq:LoveIt:0.2.11@tar.gz")
+  firebase("firebase:firebase-tools:11.18.0@binary")
   hugo("gohugoio:hugo:0.109.0@tar.gz")
+  hugoTheme("dillonzq:LoveIt:0.2.11@tar.gz")
 }
 
 firebase {
+  releasesRepository()
   projectName.set("erichaagdev")
   publicDirectory.set(tasks.named("hugoBuild", HugoBuild::class).flatMap { it.publicDirectory })
 }

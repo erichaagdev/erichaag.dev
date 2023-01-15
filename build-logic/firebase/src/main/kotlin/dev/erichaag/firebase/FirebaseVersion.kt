@@ -1,12 +1,11 @@
 package dev.erichaag.firebase
 
-import dev.erichaag.common.ExecTask
 import org.gradle.api.tasks.TaskAction
 
-abstract class FirebaseVersion : ExecTask, AbstractFirebaseTask() {
+abstract class FirebaseVersion : AbstractFirebaseExecTask() {
 
   @TaskAction
-  fun action() = binaryExec {
+  fun action() = firebaseExec {
     args("--version")
   }
 }

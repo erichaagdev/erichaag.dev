@@ -35,15 +35,6 @@ class HugoPlugin : Plugin<Project> {
     pluginManager.apply(BasePlugin::class.java)
   }
 
-  private fun Project.createHugoExtension() {
-    val hugo = extensions.create<HugoExtension>(HUGO_EXTENSION_NAME, repositories)
-    hugo.buildDrafts.convention(false)
-    hugo.sourceDirectory.convention(layout.projectDirectory.dir("hugo"))
-    hugo.processDirectory.convention(layout.buildDirectory.dir("hugo/process"))
-    hugo.publicDirectory.convention(layout.buildDirectory.dir("hugo/public"))
-    hugo.theme.convention(configurations.named(HUGO_THEME_CONFIGURATION_NAME))
-  }
-
   private fun Project.createHugoConfiguration() {
     configurations.create(HUGO_CONFIGURATION_NAME) {
       isCanBeConsumed = false
@@ -53,6 +44,15 @@ class HugoPlugin : Plugin<Project> {
     configurations.create(HUGO_THEME_CONFIGURATION_NAME) {
       isCanBeConsumed = false
     }
+  }
+
+  private fun Project.createHugoExtension() {
+    val hugo = extensions.create<HugoExtension>(HUGO_EXTENSION_NAME, repositories)
+    hugo.buildDrafts.convention(false)
+    hugo.sourceDirectory.convention(layout.projectDirectory.dir("hugo"))
+    hugo.processDirectory.convention(layout.buildDirectory.dir("hugo/process"))
+    hugo.publicDirectory.convention(layout.buildDirectory.dir("hugo/public"))
+    hugo.theme.convention(configurations.named(HUGO_THEME_CONFIGURATION_NAME))
   }
 
   private fun Project.registerHugoArtifactTransform() {

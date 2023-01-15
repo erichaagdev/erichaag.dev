@@ -13,7 +13,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
-abstract class HugoBuild : HugoExecTask() {
+abstract class HugoBuild : AbstractHugoExecTask() {
 
   @get:InputFiles
   @get:IgnoreEmptyDirectories

@@ -5,7 +5,7 @@ import org.gradle.api.tasks.UntrackedTask
 
 @Suppress("UnstableApiUsage")
 @UntrackedTask(because = "Not worth tracking")
-abstract class HugoVersion : HugoExecTask() {
+abstract class HugoVersion : AbstractHugoExecTask() {
 
   @TaskAction
   fun action() = hugoExec {
