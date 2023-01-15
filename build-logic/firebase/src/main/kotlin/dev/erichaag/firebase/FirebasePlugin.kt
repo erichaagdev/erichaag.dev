@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package dev.erichaag.firebase
 
 import org.gradle.api.Plugin
