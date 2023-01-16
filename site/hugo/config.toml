@@ -25,6 +25,16 @@ pre = "<i class='fab fa-github fa-fw' aria-hidden='true'></i>"
 title = "GitHub"
 url = "https://github.com/erichaagdev/erichaag.dev"
 
+[markup.highlight]
+guessSyntax = false
+lineNos = true
+lineNumbersInTable = true
+noClasses = false
+
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 6
+
 [params]
 dateFormat = "Jan 02, 2006"
 description = "Developer Productivity Engineering advocate with a passion for Java, Kotlin, Spring Boot, and Gradle."
