@@ -38,19 +38,18 @@ abstract class HugoProcess @Inject constructor(
 
   @TaskAction
   fun action() {
-    fileSystemOperations.copy {
+    val themeFile = theme.get().singleFile
+    fileSystemOperations.sync {
       from(sourceFiles)
-      into(outputDirectory)
-    }
-    fileSystemOperations.copy {
-      val themeFile = theme.get().singleFile
-      from(archiveOperations.tarTree(themeFile))
-      exclude("pax_global_header")
-      into(outputDirectory.dir("themes"))
-      includeEmptyDirs = false
-      eachFile {
-        path = path.replaceFirst(themeFile.name.removeSuffix(".tar.gz"), themeName.get())
+      from(archiveOperations.tarTree(themeFile)) {
+        exclude("pax_global_header")
+        into("themes")
+        includeEmptyDirs = false
+        eachFile {
+          path = path.replaceFirst(themeFile.name.removeSuffix(".tar.gz"), themeName.get())
+        }
       }
+      into(outputDirectory)
     }
   }
 }
