@@ -5,6 +5,7 @@ enableGitInfo = true
 languageCode = "en-us"
 title = "Eric Haag"
 googleAnalytics = "G-HQ6GQ1GRQR"
+theme = "LoveIt"
 
 [author]
 email = "eah0592@gmail.com"
