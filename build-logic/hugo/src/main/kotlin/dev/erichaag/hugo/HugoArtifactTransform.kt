@@ -24,7 +24,7 @@ interface HugoArtifactTransform : TransformAction<TransformParameters.None> {
   override fun transform(outputs: TransformOutputs) {
     val outputFile = outputs.file("hugo")
     fileSystemOperations.copy {
-      from(archiveOperations.tarTree(hugoArtifact.get().asFile))
+      from(archiveOperations.tarTree(archiveOperations.gzip(hugoArtifact.get().asFile)))
       include(outputFile.name)
       into(outputFile.parentFile)
     }
