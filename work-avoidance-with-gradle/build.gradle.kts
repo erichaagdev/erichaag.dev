@@ -1,18 +1,22 @@
 import dev.erichaag.hugo.ShortcodesDirectoryArgumentProvider
 
 plugins {
-  java
   id("dev.erichaag.hugo")
+  java
+  kotlin("jvm") version "1.8.10"
 }
 
 val shortcodesDirectoryArgumentProvider = ShortcodesDirectoryArgumentProvider(layout.buildDirectory.dir("hugo/snippets/$name"))
 
-repositories {
-  mavenCentral()
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of("17"))
+  }
 }
 
 dependencies {
-  testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+  testImplementation(gradleTestKit())
+  testImplementation(libs.junit.jupiter)
 }
 
 tasks.test.configure {

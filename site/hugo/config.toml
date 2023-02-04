@@ -68,6 +68,9 @@ GitHub = "erichaagdev"
 Linkedin = "erichaagdev"
 Twitter = "erichaagdev"
 
+[params.page.code]
+maxShownLines = 99999
+
 [params.page.toc]
 auto = false
 

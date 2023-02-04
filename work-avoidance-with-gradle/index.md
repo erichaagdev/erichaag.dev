@@ -87,7 +87,9 @@ Let's explore each of these in detail.
 
 ### Incremental building
 
-wip
+```shell
+{{% work-avoidance-with-gradle/incremental-building-example-output %}}
+```
 
 ### Build caching
 
@@ -104,5 +106,3 @@ wip
 ### Configuration caching
 
 wip
-
-{{< work-avoidance-with-gradle/foo >}}

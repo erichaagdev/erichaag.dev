@@ -22,7 +22,22 @@ dependencies {
 val processHugoTheme by tasks.registering(Sync::class) {
   into(layout.buildDirectory.dir("hugo/processHugoTheme"))
   from(configurations.hugoTheme.map { tarTree(it.singleFile) }) {
-    exclude("pax_global_header")
+    exclude(
+      "**/.babelrc",
+      "**/.circleci/",
+      "**/.github/",
+      "**/.husky/",
+      "**/LICENSE",
+      "**/README.md",
+      "**/README.zh-cn.md",
+      "**/config.toml",
+      "**/exampleSite/",
+      "**/go.mod",
+      "**/package-lock.json",
+      "**/package.json",
+      "**/src",
+      "pax_global_header",
+    )
     includeEmptyDirs = false
     eachFile {
       path = "themes/LoveIt/" + path.split("/").drop(1).joinToString("/")
