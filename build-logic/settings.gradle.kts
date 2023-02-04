@@ -1,5 +1,5 @@
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
-  @Suppress("UnstableApiUsage")
   repositories {
     mavenCentral()
   }
@@ -7,7 +7,5 @@ dependencyResolutionManagement {
 
 include("firebase")
 include("hugo")
-include("hugo-bundle")
-include("hugo-firebase-conventions")
 
 rootProject.name = "build-logic"

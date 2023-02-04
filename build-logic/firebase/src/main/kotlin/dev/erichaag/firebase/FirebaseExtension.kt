@@ -1,5 +1,6 @@
 package dev.erichaag.firebase
 
+import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
@@ -7,7 +8,8 @@ import org.gradle.api.provider.Property
 import java.net.URI
 
 abstract class FirebaseExtension(
-  private val repositories: RepositoryHandler
+  private val dependencies: DependencyHandler,
+  private val repositories: RepositoryHandler,
 ) {
 
   abstract val projectName: Property<String>
@@ -27,5 +29,9 @@ abstract class FirebaseExtension(
       }
       filter { includeModule("firebase", "firebase-tools") }
     }
+  }
+
+  fun toolchainVersion(version: String) = with(dependencies) {
+    add("firebaseArtifact", "firebase:firebase-tools:$version@firebaseArtifact")
   }
 }

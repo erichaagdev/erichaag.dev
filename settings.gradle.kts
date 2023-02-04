@@ -18,6 +18,7 @@ gradleEnterprise {
 includeBuild("build-logic")
 
 include("site")
+include("theme")
 include("work-avoidance-with-gradle")
 
 rootProject.name = "erichaagdev"

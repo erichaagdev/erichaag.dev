@@ -104,3 +104,5 @@ wip
 ### Configuration caching
 
 wip
+
+{{< work-avoidance-with-gradle/foo >}}

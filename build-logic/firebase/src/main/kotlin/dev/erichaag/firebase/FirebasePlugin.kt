@@ -12,7 +12,7 @@ import org.gradle.kotlin.dsl.registerTransform
 class FirebasePlugin : Plugin<Project> {
 
   companion object {
-    private const val FIREBASE_CONFIGURATION_NAME = "firebase"
+    private const val FIREBASE_ARTIFACT_CONFIGURATION_NAME = "firebaseArtifact"
     private const val FIREBASE_EXTENSION_NAME = "firebase"
 
     @Suppress("UnstableApiUsage")
@@ -25,6 +25,7 @@ class FirebasePlugin : Plugin<Project> {
     createFirebaseExtension()
     createFirebaseConfiguration()
     registerFirebaseArtifactTransform()
+    registerFirebaseArtifactType()
     configureTasks()
   }
 
@@ -38,7 +39,7 @@ class FirebasePlugin : Plugin<Project> {
   }
 
   private fun Project.createFirebaseConfiguration() {
-    configurations.create(FIREBASE_CONFIGURATION_NAME) {
+    configurations.create(FIREBASE_ARTIFACT_CONFIGURATION_NAME) {
       isCanBeConsumed = false
       attributes.attribute(ARTIFACT_TYPE_KEY, ARTIFACT_TYPE_VALUE)
     }
@@ -46,14 +47,21 @@ class FirebasePlugin : Plugin<Project> {
 
   private fun Project.registerFirebaseArtifactTransform() {
     dependencies.registerTransform(FirebaseArtifactTransform::class) {
-      @Suppress("UnstableApiUsage")
-      from.attribute(ARTIFACT_TYPE_KEY, ArtifactTypeDefinition.BINARY_DATA_TYPE)
+      from.attribute(ARTIFACT_TYPE_KEY, FIREBASE_ARTIFACT_CONFIGURATION_NAME)
       to.attribute(ARTIFACT_TYPE_KEY, ARTIFACT_TYPE_VALUE)
     }
   }
 
+  private fun Project.registerFirebaseArtifactType() {
+    if (dependencies.artifactTypes.findByName(FIREBASE_ARTIFACT_CONFIGURATION_NAME) == null) {
+      dependencies.artifactTypes.register(FIREBASE_ARTIFACT_CONFIGURATION_NAME) {
+        attributes.attribute(ARTIFACT_TYPE_KEY, FIREBASE_ARTIFACT_CONFIGURATION_NAME)
+      }
+    }
+  }
+
   private fun Project.configureTasks() {
-    val firebaseConfiguration = configurations.named(FIREBASE_CONFIGURATION_NAME)
+    val firebaseConfiguration = configurations.named(FIREBASE_ARTIFACT_CONFIGURATION_NAME)
     val firebaseExtension = extensions.getByType<FirebaseExtension>()
 
     tasks.register<FirebaseDeploy>("firebaseDeploy") {

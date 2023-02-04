@@ -1,66 +1,55 @@
 import dev.erichaag.hugo.HugoBuild
+import dev.erichaag.hugo.HugoServe
+import dev.erichaag.hugo.HugoVersion
 
 plugins {
   id("dev.erichaag.firebase")
   id("dev.erichaag.hugo")
-  id("dev.erichaag.hugo-firebase-conventions")
-}
-
-repositories {
-  exclusiveContent {
-    forRepository {
-      ivy {
-        url = uri("https://github.com")
-        patternLayout { artifact("[organisation]/[module]/archive/refs/tags/v[revision].[ext]") }
-        metadataSources { artifact() }
-      }
-    }
-    filter { includeModule("dillonzq", "LoveIt") }
-  }
 }
 
 dependencies {
-  firebase("firebase:firebase-tools:11.18.0@binary")
-  hugo("gohugoio:hugo:0.109.0@tar.gz")
-  hugoTheme("dillonzq:LoveIt:0.2.11@tar.gz")
-  hugoBundle(projects.workAvoidanceWithGradle)
+  hugoTheme(projects.theme)
+  hugoContent(projects.workAvoidanceWithGradle)
 }
 
-val processHugoTheme by tasks.registering(Sync::class) {
-  from(configurations.hugoTheme.map { tarTree(it.singleFile) }) {
-    exclude("pax_global_header")
-    includeEmptyDirs = false
-    eachFile {
-      path = path.split("/").drop(1).joinToString("/")
-    }
-  }
-  into(layout.buildDirectory.dir("hugo/processHugoTheme"))
-}
-
-val processHugoOutputDirectory = layout.buildDirectory.dir("hugo/processHugo")
 val processHugo by tasks.registering(Sync::class) {
-  into(processHugoOutputDirectory)
+  duplicatesStrategy = DuplicatesStrategy.FAIL
+
+  into(layout.buildDirectory.dir("hugo/processHugo"))
   into("") {
     from(layout.projectDirectory.dir("hugo"))
-  }
-  into("content/posts") {
-    from(configurations.hugoBundle)
-  }
-  into("themes/LoveIt") {
-    from(processHugoTheme)
+    from(configurations.hugoContent)
+    from(configurations.hugoTheme)
   }
 }
 
-tasks.withType<HugoBuild>().configureEach {
-  dependsOn(processHugo)
+val hugoBuild by tasks.registering(HugoBuild::class) {
+  hugo.set(configurations.hugoArtifact)
+  publicDirectory.set(layout.buildDirectory.dir("hugo/public"))
+  sourceDirectory.fileProvider(processHugo.map { it.destinationDir })
 }
 
-firebase {
-  releasesRepository()
-  projectName.set("erichaagdev")
+val hugoVersion by tasks.registering(HugoVersion::class) {
+  hugo.set(configurations.hugoArtifact)
+}
+
+val hugoServe by tasks.registering(HugoServe::class) {
+  hugo.set(configurations.hugoArtifact)
+  sourceDirectory.fileProvider(processHugo.map { it.destinationDir })
+}
+
+tasks.build.configure {
+  dependsOn(hugoBuild)
 }
 
 hugo {
   releasesRepository()
-  sourceDirectory.set(processHugoOutputDirectory)
+  toolchainVersion("0.109.0")
+}
+
+firebase {
+  projectName.set("erichaagdev")
+  publicDirectory.set(hugoBuild.flatMap { it.publicDirectory })
+  releasesRepository()
+  toolchainVersion("11.18.0")
 }

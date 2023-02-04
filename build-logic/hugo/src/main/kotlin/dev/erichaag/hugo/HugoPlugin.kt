@@ -6,16 +6,13 @@ import org.gradle.api.artifacts.type.ArtifactTypeDefinition
 import org.gradle.api.attributes.Category
 import org.gradle.api.plugins.BasePlugin
 import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.registerTransform
-import org.gradle.language.base.plugins.LifecycleBasePlugin
 
 class HugoPlugin : Plugin<Project> {
 
   companion object {
-    private const val HUGO_CONFIGURATION_NAME = "hugo"
+    private const val HUGO_ARTIFACT_CONFIGURATION_NAME = "hugoArtifact"
     private const val HUGO_EXTENSION_NAME = "hugo"
 
     @Suppress("UnstableApiUsage")
@@ -28,8 +25,7 @@ class HugoPlugin : Plugin<Project> {
     createHugoConfiguration()
     createHugoExtension()
     registerHugoArtifactTransform()
-    registerTarArtifactType()
-    configureTasks()
+    registerHugoArtifactType()
   }
 
   private fun Project.applyBasePlugin() {
@@ -37,69 +33,53 @@ class HugoPlugin : Plugin<Project> {
   }
 
   private fun Project.createHugoConfiguration() {
-    configurations.create(HUGO_CONFIGURATION_NAME) {
+    configurations.create(HUGO_ARTIFACT_CONFIGURATION_NAME) {
       isCanBeConsumed = false
       isCanBeResolved = true
       attributes.attribute(ARTIFACT_TYPE_KEY, ARTIFACT_TYPE_VALUE)
     }
 
-    configurations.create("hugoBundle") {
+    configurations.create("hugoContent") {
       isCanBeConsumed = false
       isCanBeResolved = true
-      attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-bundle"))
+      attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-content"))
+    }
+
+    configurations.create("hugoContentElements") {
+      isCanBeConsumed = true
+      isCanBeResolved = false
+      attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-content"))
     }
 
     configurations.create("hugoTheme") {
       isCanBeConsumed = false
       isCanBeResolved = true
+      attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-theme"))
+    }
+
+    configurations.create("hugoThemeElements") {
+      isCanBeConsumed = true
+      isCanBeResolved = false
+      attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-theme"))
     }
   }
 
   private fun Project.createHugoExtension() {
-    val hugo = extensions.create<HugoExtension>(HUGO_EXTENSION_NAME, repositories)
-    hugo.sourceDirectory.convention(layout.projectDirectory.dir("hugo"))
-    hugo.publicDirectory.convention(layout.buildDirectory.dir("hugo/public"))
+    extensions.create<HugoExtension>(HUGO_EXTENSION_NAME)
   }
 
   private fun Project.registerHugoArtifactTransform() {
     dependencies.registerTransform(HugoArtifactTransform::class) {
-      from.attribute(ARTIFACT_TYPE_KEY, "tar.gz")
+      from.attribute(ARTIFACT_TYPE_KEY, HUGO_ARTIFACT_CONFIGURATION_NAME)
       to.attribute(ARTIFACT_TYPE_KEY, ARTIFACT_TYPE_VALUE)
     }
   }
 
-  private fun Project.registerTarArtifactType() {
-    if (dependencies.artifactTypes.findByName("tar.gz") == null) {
-      dependencies.artifactTypes.register("tar.gz") {
-        attributes.attribute(ARTIFACT_TYPE_KEY, "tar.gz")
+  private fun Project.registerHugoArtifactType() {
+    if (dependencies.artifactTypes.findByName(HUGO_ARTIFACT_CONFIGURATION_NAME) == null) {
+      dependencies.artifactTypes.register(HUGO_ARTIFACT_CONFIGURATION_NAME) {
+        attributes.attribute(ARTIFACT_TYPE_KEY, HUGO_ARTIFACT_CONFIGURATION_NAME)
       }
-    }
-  }
-
-  private fun Project.configureTasks() {
-    val hugoExtension = extensions.getByType<HugoExtension>()
-    val hugoConfiguration = configurations.named(HUGO_CONFIGURATION_NAME)
-
-    val buildHugo = tasks.register<HugoBuild>("hugoBuild") {
-      dependsOn(hugoConfiguration)
-      hugo.set(hugoConfiguration)
-      publicDirectory.set(hugoExtension.publicDirectory)
-      sourceDirectory.set(hugoExtension.sourceDirectory)
-    }
-
-    tasks.register<HugoServe>("hugoServe") {
-      dependsOn(hugoConfiguration)
-      hugo.set(hugoConfiguration)
-      sourceDirectory.set(hugoExtension.sourceDirectory)
-    }
-
-    tasks.register<HugoVersion>("hugoVersion") {
-      dependsOn(hugoConfiguration)
-      hugo.set(hugoConfiguration)
-    }
-
-    tasks.named(LifecycleBasePlugin.BUILD_TASK_NAME) {
-      dependsOn(buildHugo)
     }
   }
 }
