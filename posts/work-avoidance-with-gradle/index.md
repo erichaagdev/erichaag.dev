@@ -120,7 +120,21 @@ wip
 
 #### Local build caching
 
-wip
+```properties
+{{% work-avoidance-with-gradle/local-build-example-gradle-properties %}}
+```
+
+```shell
+{{% work-avoidance-with-gradle/local-build-example-output-1 %}}
+```
+
+```shell
+{{% work-avoidance-with-gradle/local-build-example-output-2 %}}
+```
+
+```shell
+{{% work-avoidance-with-gradle/local-build-example-output-3 %}}
+```
 
 #### Remote build caching
 
