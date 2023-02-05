@@ -86,3 +86,9 @@ enable = true
 
 [params.analytics.google]
 id = "G-HQ6GQ1GRQR"
+
+[caches.assets]
+dir = ":cacheDir/:project/_gen"
+
+[caches.images]
+dir = ":cacheDir/:project/_gen"

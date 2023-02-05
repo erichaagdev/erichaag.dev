@@ -20,7 +20,8 @@ You may hear the following responses:
 - Update Gradle, Java, and plugin versions
 - Enable or improve build parallelization
 
-These are all valid answers to the question. But, there is another answer:
+These are all valid answers to the question.
+But, there is another answer:
 
 > We can improve the speed of a Gradle build by avoiding work we've already done.
 
@@ -30,34 +31,15 @@ This concept is called **work avoidance** and is one of the best ways to improve
 
 The concept of work avoidance is simple.
 Why should we repeat work we've already done?
-Let's start by applying the concept of work avoidance to a hypothetical scenario.
-
-Imagine you are starting your own residential construction business.
-You've been approached by a potential client to construct a 6' x 8' shed for their backyard.
-You spend the next few hours drafting blueprints according to their exact specifications.
-The next day, you present the blueprints to the client.
-They like what they see and want to hire you for the job!
-
-The following week, you are approached by a new potential client.
-They've heard of your great work and would also like to hire you to construct a 6' x 8' shed.
-This time there is no need to spend hours drafting blueprints.
-Since the criteria is the same, you can reuse the blueprints you drafted last week.
-You are able to present the blueprints to your client immediately.
-Another satisfied client!
-
-## Work avoidance in Gradle
-
-So, what does the concept of work avoidance mean in the context of Gradle?
-The idea is exactly the same.
 Why should we spend time re-compiling code that has already been previously compiled?
 Why re-run tests that we already know will pass?
 
-Work avoidance is a core concept in Gradle and is one reason it is faster when compared to other build tools.
+Work avoidance is a key feature of Gradle and is one reason it is faster when compared to other build tools.
 
 In order to better understand the concept of work avoidance, we must first understand how Gradle defines work.
 In Gradle, a unit of work is defined as a **task**.
 When executing a Gradle build, we are executing one or more tasks.
-For example, there are Gradle tasks to: compile Java code, create code artifacts, and execute tests.
+For example, in a typical Java build there are Gradle tasks to: compile code, create artifacts, and execute tests.
 
 At a high level, there are three main components that make up a task in Gradle:
 
@@ -65,7 +47,7 @@ At a high level, there are three main components that make up a task in Gradle:
 - The **action** to perform
 - One or more **outputs**
 
-You may notice the components of a task are exactly the same as another construct developers use regularly, a _function_!
+You may notice these components are exactly the same as another construct developers use regularly, a _function_!
 
 So, how does Gradle know whether to execute a task or if the task can be avoided?
 
@@ -76,7 +58,7 @@ We can instead reuse the outputs from a previous execution of the task.
 
 ## Types of work avoidance in Gradle
 
-As mentioned previously, the concept of work avoidance is a core concept in Gradle.
+As mentioned previously, work avoidance is a key feature in Gradle.
 In fact, there are several forms of work avoidance:
 
 - Incremental building
@@ -87,9 +69,50 @@ Let's explore each of these in detail.
 
 ### Incremental building
 
+Incremental building is a form of work avoidance that skips running a task when a task's inputs or outputs have not changed, and the output is already present in the `build` directory. It is enabled by default.
+
+Following a `clean`, or when running a build for the first time, you might see something like this:
+
 ```shell
-{{% work-avoidance-with-gradle/incremental-building-example-output %}}
+{{% work-avoidance-with-gradle/incremental-building-example-output-1 %}}
 ```
+
+In this execution, Gradle is reporting that out of the 6 actionable tasks, all 6 tasks were executed.
+Additionally, the project directory now has a `build` directory containing the outputs of each task. 
+
+Why does Gradle report that there were only 6 actionable tasks when the output shows 11?
+An actionable task is a task which has an **action** defined.
+Tasks which do not have an action are called [_lifecycle tasks_](https://docs.gradle.org/current/userguide/more_about_tasks.html#sec:lifecycle_tasks).
+Lifecycle tasks do not need to perform any work and are not executed.
+
+Given that no code changes have been made, then the next execution will look like:
+
+```shell
+{{% work-avoidance-with-gradle/incremental-building-example-output-2 %}}
+```
+
+What's different about this execution?
+We can see the outcome of every task was `UP-TO-DATE` and the build duration was significantly quicker.
+Gradle was able to skip the execution of all 6 actionable tasks because it did not detect changes to any task inputs or outputs.
+The `build` directory still contains the outputs of each task.
+
+However, very rarely do we execute two builds back-to-back without making any changes.
+What happens when we do make a change to one of the task inputs?
+Imagine we make a change to a source file in the main source set.
+
+```shell
+{{% work-avoidance-with-gradle/incremental-building-example-output-3 %}}
+```
+
+This time only 3 tasks were executed while the other 3 remained up-to-date.
+- The executed actionable tasks are: `compileJava`, `jar`, and `test`
+- The avoided actionable tasks are: `processResources`, `compileTestJava`, and `processTestResources`
+
+Gradle re-executes `compileJava` because there was a change to one of its inputs, a Java source file.
+This causes the `jar` and `test` tasks to re-execute because their inputs have now changed as a result of recompiling the code.
+
+However, Gradle was able to skip the execution of the other tasks because none of their inputs or outputs changed.
+Instead, we are able to leverage the work done previously and reuse the outputs present in the `build` directory.
 
 ### Build caching
 

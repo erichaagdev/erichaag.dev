@@ -2,7 +2,7 @@ package dev.erichaag.example;
 
 public class App {
     public String getGreeting() {
-        return "Hello World!";
+        return "Hello world!";
     }
 
     public static void main(String[] args) {
