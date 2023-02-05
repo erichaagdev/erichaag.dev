@@ -24,8 +24,8 @@ gradleEnterprise {
 
 includeBuild("build-logic")
 
-include("site")
-include("theme")
-include("work-avoidance-with-gradle")
+include(":site")
+include(":theme")
+include(":posts:work-avoidance-with-gradle")
 
 rootProject.name = "erichaagdev"

@@ -9,7 +9,7 @@ plugins {
 
 dependencies {
   hugoTheme(projects.theme)
-  hugoContent(projects.workAvoidanceWithGradle)
+  hugoContent(projects.posts.workAvoidanceWithGradle)
 }
 
 val processHugo by tasks.registering(Sync::class) {
