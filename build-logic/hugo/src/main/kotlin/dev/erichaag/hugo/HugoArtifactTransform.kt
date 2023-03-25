@@ -8,6 +8,7 @@ import org.gradle.api.file.ArchiveOperations
 import org.gradle.api.file.FileSystemLocation
 import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.provider.Provider
+import org.gradle.internal.os.OperatingSystem
 import javax.inject.Inject
 
 interface HugoArtifactTransform : TransformAction<TransformParameters.None> {
@@ -22,6 +23,23 @@ interface HugoArtifactTransform : TransformAction<TransformParameters.None> {
   val fileSystemOperations: FileSystemOperations
 
   override fun transform(outputs: TransformOutputs) {
+    val os = OperatingSystem.current()
+    when {
+      os.isWindows -> transformWindows(outputs)
+      else -> transformDefault(outputs)
+    }
+  }
+
+  private fun transformWindows(outputs: TransformOutputs) {
+    val outputFile = outputs.file("hugo.exe")
+    fileSystemOperations.copy {
+      from(archiveOperations.zipTree(archiveOperations.gzip(hugoArtifact.get().asFile)))
+      include(outputFile.name)
+      into(outputFile.parentFile)
+    }
+  }
+
+  private fun transformDefault(outputs: TransformOutputs) {
     val outputFile = outputs.file("hugo")
     fileSystemOperations.copy {
       from(archiveOperations.tarTree(archiveOperations.gzip(hugoArtifact.get().asFile)))

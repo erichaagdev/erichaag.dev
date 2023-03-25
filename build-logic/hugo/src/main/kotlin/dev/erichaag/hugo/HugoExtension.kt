@@ -2,6 +2,7 @@ package dev.erichaag.hugo
 
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.internal.os.OperatingSystem
 import java.net.URI
 
 abstract class HugoExtension(
@@ -13,8 +14,9 @@ abstract class HugoExtension(
     exclusiveContent {
       forRepository {
         ivy {
-          url = URI("https://github.com/gohugoio/hugo/releases/download")
-          patternLayout { artifact("v[revision]/hugo_extended_[revision]_linux-amd64.tar.gz") }
+          name = "Hugo Releases"
+          url = URI("https://github.com/gohugoio/hugo")
+          patternLayout { artifact("/releases/download/v[revision]/hugo_extended_[revision]_[classifier].[ext]") }
           metadataSources { artifact() }
         }
       }
@@ -23,6 +25,14 @@ abstract class HugoExtension(
   }
 
   fun toolchainVersion(version: String) = with(dependencies) {
-    add("hugoArtifact", "gohugoio:hugo:$version@hugoArtifact")
+    val os = OperatingSystem.current()
+    val (osFilenamePart, osArtifactType) = when {
+      os.isWindows -> "windows-amd64" to "zip"
+      os.isMacOsX  -> "darwin-universal" to "tar.gz"
+      os.isLinux && os.nativePrefix.contains("arm64") -> "linux-arm64" to "tar.gz"
+      os.isLinux && os.nativePrefix.contains("64") -> "linux-amd64" to "tar.gz"
+      else -> throw IllegalStateException("There are no Hugo binaries available for your OS")
+    }
+    add("hugoArtifact", "gohugoio:hugo:$version:$osFilenamePart@$osArtifactType")
   }
 }
