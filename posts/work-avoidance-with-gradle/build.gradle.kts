@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import dev.erichaag.hugo.ShortcodesDirectoryArgumentProvider
 
 plugins {
@@ -10,7 +12,7 @@ val shortcodesDirectoryArgumentProvider = ShortcodesDirectoryArgumentProvider(la
 
 java {
   toolchain {
-    languageVersion.set(JavaLanguageVersion.of("17"))
+    languageVersion = JavaLanguageVersion.of("17")
   }
 }
 

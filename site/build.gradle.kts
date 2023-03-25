@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import dev.erichaag.hugo.HugoBuild
 import dev.erichaag.hugo.HugoServe
 import dev.erichaag.hugo.HugoVersion
@@ -24,17 +26,17 @@ val processHugo by tasks.registering(Sync::class) {
 }
 
 val hugoBuild by tasks.registering(HugoBuild::class) {
-  hugo.set(configurations.hugoArtifact)
-  publicDirectory.set(layout.buildDirectory.dir("hugo/public"))
+  hugo = configurations.hugoArtifact
+  publicDirectory = layout.buildDirectory.dir("hugo/public")
   sourceDirectory.fileProvider(processHugo.map { it.destinationDir })
 }
 
 val hugoVersion by tasks.registering(HugoVersion::class) {
-  hugo.set(configurations.hugoArtifact)
+  hugo = configurations.hugoArtifact
 }
 
 val hugoServe by tasks.registering(HugoServe::class) {
-  hugo.set(configurations.hugoArtifact)
+  hugo = configurations.hugoArtifact
   sourceDirectory.fileProvider(processHugo.map { it.destinationDir })
 }
 
@@ -48,8 +50,8 @@ hugo {
 }
 
 firebase {
-  projectName.set("erichaagdev")
-  publicDirectory.set(hugoBuild.flatMap { it.publicDirectory })
+  projectName = "erichaagdev"
+  publicDirectory = hugoBuild.flatMap { it.publicDirectory }
   releasesRepository()
   toolchainVersion("11.18.0")
 }
