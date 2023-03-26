@@ -16,8 +16,8 @@ hugo {
 }
 
 firebase {
-  projectName = "erichaagdev"
-  publicDirectory = tasks.hugoBuild.flatMap { it.publicDirectory }
   releasesRepository()
   toolchainVersion("11.18.0")
+  projectName = "erichaagdev"
+  publicDirectory = tasks.hugoBuild.flatMap { it.publicDirectory }
 }
