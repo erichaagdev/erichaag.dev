@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 abstract class FirebaseDeploy @Inject constructor(
   private val fileSystemOperations: FileSystemOperations,
-) : AbstractFirebaseExecTask() {
+) : AbstractFirebaseTask() {
 
   @get:Input
   abstract val projectName: Property<String>

@@ -2,7 +2,7 @@ package dev.erichaag.firebase
 
 import org.gradle.api.tasks.TaskAction
 
-abstract class FirebaseVersion : AbstractFirebaseExecTask() {
+abstract class FirebaseVersion : AbstractFirebaseTask() {
 
   @TaskAction
   fun action() = firebaseExec {

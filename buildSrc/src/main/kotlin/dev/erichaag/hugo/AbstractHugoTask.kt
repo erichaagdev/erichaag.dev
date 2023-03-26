@@ -15,7 +15,7 @@ abstract class AbstractHugoTask : DefaultTask() {
 
   @get:PathSensitive(PathSensitivity.NONE)
   @get:InputFiles
-  abstract val hugo: Property<FileCollection>
+  abstract val hugoExecutable: Property<FileCollection>
 
   @get:Inject
   abstract val execOperations: ExecOperations
@@ -25,7 +25,7 @@ abstract class AbstractHugoTask : DefaultTask() {
   }
 
   fun hugoExec(action: Action<ExecSpec>) = execOperations.exec {
-    commandLine(hugo.get().singleFile.path)
+    commandLine(hugoExecutable.get().singleFile.path)
     action.execute(this)
   }.assertNormalExitValue()!!
 }

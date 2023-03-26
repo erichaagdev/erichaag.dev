@@ -7,14 +7,16 @@ import org.gradle.api.artifacts.transform.TransformParameters
 import org.gradle.api.file.ArchiveOperations
 import org.gradle.api.file.FileSystemLocation
 import org.gradle.api.file.FileSystemOperations
+import org.gradle.api.file.FileTree
 import org.gradle.api.provider.Provider
 import org.gradle.internal.os.OperatingSystem
+import java.io.File
 import javax.inject.Inject
 
 interface HugoArtifactTransform : TransformAction<TransformParameters.None> {
 
   @get:InputArtifact
-  val hugoArtifact: Provider<FileSystemLocation>
+  val hugoArchive: Provider<FileSystemLocation>
 
   @get:Inject
   val archiveOperations: ArchiveOperations
@@ -25,24 +27,14 @@ interface HugoArtifactTransform : TransformAction<TransformParameters.None> {
   override fun transform(outputs: TransformOutputs) {
     val os = OperatingSystem.current()
     when {
-      os.isWindows -> transformWindows(outputs)
-      else -> transformDefault(outputs)
+      os.isWindows -> transform(outputs.file("hugo.exe"), archiveOperations::zipTree)
+      else -> transform(outputs.file("hugo"), archiveOperations::tarTree)
     }
   }
 
-  private fun transformWindows(outputs: TransformOutputs) {
-    val outputFile = outputs.file("hugo.exe")
+  private fun transform(outputFile: File, unpack: (Any) -> FileTree) {
     fileSystemOperations.copy {
-      from(archiveOperations.zipTree(archiveOperations.gzip(hugoArtifact.get().asFile)))
-      include(outputFile.name)
-      into(outputFile.parentFile)
-    }
-  }
-
-  private fun transformDefault(outputs: TransformOutputs) {
-    val outputFile = outputs.file("hugo")
-    fileSystemOperations.copy {
-      from(archiveOperations.tarTree(archiveOperations.gzip(hugoArtifact.get().asFile)))
+      from(unpack(archiveOperations.gzip(hugoArchive.get().asFile)))
       include(outputFile.name)
       into(outputFile.parentFile)
     }

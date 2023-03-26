@@ -1,8 +1,4 @@
-plugins {
-  id("base")
-}
-
-val hugoTheme = extensions.create<HugoThemeExtension>("hugoTheme", dependencies)
+val hugoThemeExtension = extensions.create<HugoThemeExtension>("hugoTheme", dependencies)
 
 val hugoThemeExports: Configuration by configurations.creating {
   isCanBeConsumed = true
