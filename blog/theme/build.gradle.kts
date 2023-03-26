@@ -1,7 +1,7 @@
 plugins {
-  id("dev.erichaag.blog-theme")
+  id("dev.erichaag.hugo-theme")
 }
 
-blogTheme {
+hugoTheme {
   version("0.2.11")
 }

@@ -1,3 +1,3 @@
 plugins {
-  id("dev.erichaag.blog-post")
+  id("dev.erichaag.hugo-post")
 }

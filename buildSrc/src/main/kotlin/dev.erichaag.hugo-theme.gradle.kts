@@ -2,12 +2,12 @@ plugins {
   id("base")
 }
 
-val blogTheme = extensions.create<BlogThemeExtension>("blogTheme", dependencies)
+val hugoTheme = extensions.create<HugoThemeExtension>("hugoTheme", dependencies)
 
-val blogThemeExports: Configuration by configurations.creating {
+val hugoThemeExports: Configuration by configurations.creating {
   isCanBeConsumed = true
   isCanBeResolved = false
-  attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("blog-theme"))
+  attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-theme"))
 }
 
 val loveItTheme: Configuration by configurations.creating
@@ -16,7 +16,7 @@ repositories {
   exclusiveContent {
     forRepository {
       ivy {
-        name = "LoveIt Theme Repository"
+        name = "LoveIt Theme"
         url = uri("https://github.com/dillonzq/LoveIt")
         patternLayout { artifact("archive/refs/tags/v[revision].[ext]") }
         metadataSources { artifact() }
@@ -26,8 +26,9 @@ repositories {
   }
 }
 
-val processBlogTheme by tasks.registering(Sync::class) {
-  into(layout.buildDirectory.dir("hugo/processHugoTheme"))
+val processHugoTheme by tasks.registering(Sync::class) {
+  duplicatesStrategy = DuplicatesStrategy.FAIL
+  into(layout.buildDirectory.dir("tasks/$name"))
   from(loveItTheme.map { tarTree(it) }) {
     exclude(
       "**/.babelrc",
@@ -53,10 +54,10 @@ val processBlogTheme by tasks.registering(Sync::class) {
 }
 
 artifacts {
-  add(blogThemeExports.name, processBlogTheme)
+  add(hugoThemeExports.name, processHugoTheme)
 }
 
-abstract class BlogThemeExtension(private val dependencies: DependencyHandler) {
+abstract class HugoThemeExtension(private val dependencies: DependencyHandler) {
   fun version(version: String) {
     dependencies.add("loveItTheme", "dillonzq:LoveIt:$version@tar.gz")
   }

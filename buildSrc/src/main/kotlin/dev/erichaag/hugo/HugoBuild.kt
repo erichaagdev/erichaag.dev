@@ -8,7 +8,7 @@ import javax.inject.Inject
 @CacheableTask
 abstract class HugoBuild @Inject constructor(
   private val fileSystemOperations: FileSystemOperations,
-) : AbstractHugoExecTask() {
+) : AbstractHugoTask() {
 
   @get:IgnoreEmptyDirectories
   @get:InputDirectory

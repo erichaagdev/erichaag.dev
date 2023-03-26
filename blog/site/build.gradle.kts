@@ -2,12 +2,12 @@
 
 plugins {
   id("dev.erichaag.firebase")
-  id("dev.erichaag.blog")
+  id("dev.erichaag.hugo")
 }
 
 dependencies {
-  blogTheme(projects.blog.theme)
-  blogPost(projects.blog.posts.workAvoidanceWithGradle)
+  hugoTheme(projects.blog.theme)
+  hugoPost(projects.blog.posts.workAvoidanceWithGradle)
 }
 
 hugo {

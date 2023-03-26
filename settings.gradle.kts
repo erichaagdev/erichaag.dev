@@ -20,11 +20,10 @@ dependencyResolutionManagement {
 
 gradleEnterprise {
   buildScan {
+    publishAlways()
     isUploadInBackground = !System.getenv().containsKey("CI")
     termsOfServiceAgree = "yes"
     termsOfServiceUrl = "https://gradle.com/terms-of-service"
-
-    publishAlways()
   }
 }
 

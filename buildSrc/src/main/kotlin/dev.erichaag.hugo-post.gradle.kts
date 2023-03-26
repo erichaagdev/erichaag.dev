@@ -3,20 +3,18 @@ plugins {
   id("jvm-test-suite")
 }
 
-val blogPostExports: Configuration by configurations.creating {
+val hugoPostExports: Configuration by configurations.creating {
   isCanBeConsumed = true
   isCanBeResolved = false
-  attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("blog-post"))
+  attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-post"))
 }
 
-val snippetsDirectory = SnippetsDirectory(layout.buildDirectory.dir("hugo/snippets/$name"))
+val snippetsDirectory = SnippetsDirectory(layout.buildDirectory.dir("snippets/$name"))
 val test by testing.suites.getting(JvmTestSuite::class) {
   useJUnitJupiter()
-
   dependencies {
     implementation(gradleTestKit())
   }
-
   targets.all {
     testTask.configure {
       jvmArgumentProviders.add(snippetsDirectory)
@@ -24,9 +22,10 @@ val test by testing.suites.getting(JvmTestSuite::class) {
   }
 }
 
-val processBlogPost by tasks.registering(Sync::class) {
+val processHugoPost by tasks.registering(Sync::class) {
   dependsOn(test)
-  into(layout.buildDirectory.dir("post/$name"))
+  duplicatesStrategy = DuplicatesStrategy.FAIL
+  into(layout.buildDirectory.dir("tasks/$name"))
   into("content/posts/${project.name}") {
     from(layout.projectDirectory.file("index.md"))
   }
@@ -36,7 +35,7 @@ val processBlogPost by tasks.registering(Sync::class) {
 }
 
 artifacts {
-  add(blogPostExports.name, processBlogPost)
+  add(hugoPostExports.name, processHugoPost)
 }
 
 class SnippetsDirectory(@get:OutputDirectory val value: Provider<Directory>) : CommandLineArgumentProvider {
