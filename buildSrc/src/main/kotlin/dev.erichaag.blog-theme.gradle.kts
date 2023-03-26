@@ -1,19 +1,16 @@
-import org.gradle.internal.os.OperatingSystem
-import java.net.URI
-
 plugins {
   id("base")
 }
 
 val blogTheme = extensions.create<BlogThemeExtension>("blogTheme", dependencies)
 
-val blogThemeExports by configurations.creating {
+val blogThemeExports: Configuration by configurations.creating {
   isCanBeConsumed = true
   isCanBeResolved = false
   attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("blog-theme"))
 }
 
-val loveItTheme by configurations.creating
+val loveItTheme: Configuration by configurations.creating
 
 repositories {
   exclusiveContent {

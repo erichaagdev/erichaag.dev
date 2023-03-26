@@ -12,19 +12,19 @@ plugins {
 
 val hugo = extensions.create<HugoExtension>("hugo")
 
-val blogPost by configurations.creating {
+val blogPost: Configuration by configurations.creating {
   isCanBeConsumed = false
   isCanBeResolved = true
   attributes.attribute(CATEGORY_ATTRIBUTE, objects.named("blog-post"))
 }
 
-val blogTheme by configurations.creating {
+val blogTheme: Configuration by configurations.creating {
   isCanBeConsumed = false
   isCanBeResolved = true
   attributes.attribute(CATEGORY_ATTRIBUTE, objects.named("blog-theme"))
 }
 
-val hugoExecutable by configurations.creating {
+val hugoExecutable: Configuration by configurations.creating {
   isCanBeConsumed = false
   isCanBeResolved = true
   attributes.attribute(ARTIFACT_TYPE_ATTRIBUTE, "hugo")

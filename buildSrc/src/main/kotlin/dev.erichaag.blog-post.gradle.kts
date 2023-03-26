@@ -3,7 +3,7 @@ plugins {
   id("jvm-test-suite")
 }
 
-val blogPostExports by configurations.creating {
+val blogPostExports: Configuration by configurations.creating {
   isCanBeConsumed = true
   isCanBeResolved = false
   attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("blog-post"))
