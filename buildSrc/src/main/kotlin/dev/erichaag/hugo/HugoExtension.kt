@@ -33,6 +33,6 @@ abstract class HugoExtension(
       os.isLinux && os.nativePrefix.contains("64") -> "linux-amd64" to "tar.gz"
       else -> throw IllegalStateException("There are no Hugo binaries available for your OS")
     }
-    add("hugoArtifact", "gohugoio:hugo:$version:$osFilenamePart@$osArtifactType")
+    add("hugoExecutable", "gohugoio:hugo:$version:$osFilenamePart@$osArtifactType")
   }
 }
