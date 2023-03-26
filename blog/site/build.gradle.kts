@@ -6,8 +6,8 @@ plugins {
 }
 
 dependencies {
-  blogTheme(projects.theme)
-  blogPost(projects.posts.workAvoidanceWithGradle)
+  blogTheme(projects.blog.theme)
+  blogPost(projects.blog.posts.workAvoidanceWithGradle)
 }
 
 hugo {

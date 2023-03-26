@@ -28,8 +28,8 @@ gradleEnterprise {
   }
 }
 
-include(":site")
-include(":theme")
-include(":posts:work-avoidance-with-gradle")
+include(":blog:site")
+include(":blog:theme")
+include(":blog:posts:work-avoidance-with-gradle")
 
 rootProject.name = "erichaagdev"
