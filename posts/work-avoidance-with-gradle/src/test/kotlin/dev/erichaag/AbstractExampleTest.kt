@@ -21,7 +21,7 @@ abstract class AbstractExampleTest {
   }
 
   protected fun createSnippet(name: String, text: String) =
-    File(System.getProperty("dev.erichaag.hugo.shortcodesDirectory")).resolve(name).writeText(text)
+    File(System.getProperty("dev.erichaag.post.snippets")).resolve(name).writeText(text)
 
   protected fun copyProject(name: String) =
     File(javaClass.getResource("/$name")!!.path).copyRecursively(projectDirectory)

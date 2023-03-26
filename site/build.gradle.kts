@@ -6,12 +6,12 @@ import dev.erichaag.hugo.HugoVersion
 
 plugins {
   id("dev.erichaag.firebase")
-  id("dev.erichaag.hugo")
+  id("dev.erichaag.hugo-site")
 }
 
 dependencies {
   hugoTheme(projects.theme)
-  hugoContent(projects.posts.workAvoidanceWithGradle)
+  post(projects.posts.workAvoidanceWithGradle)
 }
 
 val processHugo by tasks.registering(Sync::class) {
@@ -20,7 +20,7 @@ val processHugo by tasks.registering(Sync::class) {
   into(layout.buildDirectory.dir("hugo/processHugo"))
   into("") {
     from(layout.projectDirectory.dir("hugo"))
-    from(configurations.hugoContent)
+    from(configurations.post)
     from(configurations.hugoTheme)
   }
 }
