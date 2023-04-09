@@ -3,6 +3,10 @@
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+pluginManagement {
+  includeBuild("build-logic")
+}
+
 plugins {
   id("com.gradle.enterprise") version "3.12.6"
   id("com.gradle.common-custom-user-data-gradle-plugin") version "1.10"

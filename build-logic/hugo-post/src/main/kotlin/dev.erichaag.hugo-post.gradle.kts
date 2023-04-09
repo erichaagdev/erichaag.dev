@@ -1,16 +1,19 @@
+@file:Suppress("UnstableApiUsage", "HasPlatformType")
+
+import dev.erichaag.hugo.post.SnippetsDirectory
+
 plugins {
-  id("dev.erichaag.kotlin")
   id("jvm-test-suite")
 }
 
-val hugoPostExports: Configuration by configurations.creating {
+val hugoPostExports by configurations.creating {
   isCanBeConsumed = true
   isCanBeResolved = false
   attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-post"))
 }
 
 val snippetsDirectory = SnippetsDirectory(layout.buildDirectory.dir("snippets/$name"))
-val test by testing.suites.getting(JvmTestSuite::class) {
+val blogTest by testing.suites.creating(JvmTestSuite::class) {
   useJUnitJupiter()
   dependencies {
     implementation(gradleTestKit())
@@ -23,7 +26,7 @@ val test by testing.suites.getting(JvmTestSuite::class) {
 }
 
 val processHugoPost by tasks.registering(Sync::class) {
-  dependsOn(test)
+  dependsOn(blogTest)
   duplicatesStrategy = DuplicatesStrategy.FAIL
   into(layout.buildDirectory.dir("tasks/$name"))
   into("content/posts/${project.name}") {
@@ -36,8 +39,4 @@ val processHugoPost by tasks.registering(Sync::class) {
 
 artifacts {
   add(hugoPostExports.name, processHugoPost)
-}
-
-class SnippetsDirectory(@get:OutputDirectory val value: Provider<Directory>) : CommandLineArgumentProvider {
-  override fun asArguments() = listOf("-Ddev.erichaag.post.snippets=${value.get().asFile.path}")
 }

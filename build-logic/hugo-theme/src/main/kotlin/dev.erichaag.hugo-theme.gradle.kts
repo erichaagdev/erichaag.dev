@@ -1,12 +1,20 @@
-val hugoThemeExtension = extensions.create<HugoThemeExtension>("hugoTheme", dependencies)
+@file:Suppress("HasPlatformType")
 
-val hugoThemeExports: Configuration by configurations.creating {
+import dev.erichaag.hugo.theme.HugoThemeExtension
+
+plugins {
+  id("base")
+}
+
+val hugoThemeExtension = extensions.create<HugoThemeExtension>("hugoTheme")
+
+val hugoThemeExports by configurations.creating {
   isCanBeConsumed = true
   isCanBeResolved = false
   attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-theme"))
 }
 
-val loveItTheme: Configuration by configurations.creating
+val loveItTheme by configurations.creating
 
 repositories {
   exclusiveContent {
@@ -51,10 +59,4 @@ val processHugoTheme by tasks.registering(Sync::class) {
 
 artifacts {
   add(hugoThemeExports.name, processHugoTheme)
-}
-
-abstract class HugoThemeExtension(private val dependencies: DependencyHandler) {
-  fun version(version: String) {
-    dependencies.add("loveItTheme", "dillonzq:LoveIt:$version@tar.gz")
-  }
 }
