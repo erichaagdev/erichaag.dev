@@ -6,17 +6,14 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.time.Duration
 
-class IncrementalBuildingExampleTest : AbstractExampleTest() {
+class IncrementalBuildingScenarioTest : AbstractScenarioTest() {
 
   @Test
-  fun `demonstrate incremental building`() {
-    copyProject("java-example-project")
-
+  fun `incremental building scenario`() {
     val firstResult = runner.withArguments("build").build()
     val secondResult = runner.withArguments("build").build()
     val thirdResult = runner.run {
-      val mainSourceFile = projectDirectory.resolve("src/main/java/dev/erichaag/example/App.java")
-      mainSourceFile.writeText(mainSourceFile.readText().replace(Regex("return.*"), """return "Hello there!";"""))
+      project.application.replaceText(Regex("return.*"), """return "Hello there!";""")
       withArguments("build").build()
     }
 

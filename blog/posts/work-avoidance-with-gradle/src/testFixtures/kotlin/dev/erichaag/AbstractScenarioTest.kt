@@ -8,23 +8,24 @@ import org.junit.jupiter.api.io.TempDir
 import java.io.File
 import java.time.Duration
 
-abstract class AbstractExampleTest {
+abstract class AbstractScenarioTest {
+
+  @TempDir
+  private lateinit var projectDirectory: File
 
   protected lateinit var runner: GradleRunner
 
-  @TempDir
-  protected lateinit var projectDirectory: File
+  protected lateinit var project: SimpleJavaProject
 
   @BeforeEach
   fun beforeEach() {
     runner = GradleRunner.create().withProjectDir(projectDirectory)
+    project = SimpleJavaProject(projectDirectory)
+    project.writeProject()
   }
 
   protected fun createSnippet(name: String, text: String) =
     File(System.getProperty("dev.erichaag.post.snippets")).resolve(name).writeText(text)
-
-  protected fun copyProject(name: String) =
-    File(javaClass.getResource("/$name")!!.path).copyRecursively(projectDirectory)
 
   protected fun outputOf(tasks: List<String>, result: BuildResult, duration: Duration) = """
     |$ ./gradlew ${tasks.joinToString(" ")}
