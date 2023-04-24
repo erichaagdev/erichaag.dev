@@ -74,7 +74,7 @@ Incremental building is a form of work avoidance that skips running a task when 
 Following a `clean`, or when running a build for the first time, you might see something like this:
 
 ```shell
-{{% work-avoidance-with-gradle/incremental-building-example-output-1 %}}
+{{% work-avoidance-with-gradle/incremental-building-output-1 %}}
 ```
 
 In this execution, Gradle is reporting that out of the 6 actionable tasks, all 6 tasks were executed.
@@ -102,7 +102,7 @@ Lifecycle tasks do not need to perform any work and are not executed.
 Given that no code changes have been made, then the next execution will look like this:
 
 ```shell
-{{% work-avoidance-with-gradle/incremental-building-example-output-2 %}}
+{{% work-avoidance-with-gradle/incremental-building-output-2 %}}
 ```
 
 What's different about this execution?
@@ -115,7 +115,7 @@ What happens when we do make a change to one of the task inputs?
 Imagine we make a change to a source file in the main source set.
 
 ```shell
-{{% work-avoidance-with-gradle/incremental-building-example-output-3 %}}
+{{% work-avoidance-with-gradle/incremental-building-output-3 %}}
 ```
 
 This time only 3 tasks were executed while the other 3 remained up-to-date.
@@ -161,18 +161,18 @@ Build caching is not enabled by default.
 To enable build caching, the following property can be added to a project's `gradle.properties` file.
 
 ```properties
-{{% work-avoidance-with-gradle/local-build-example-gradle-properties %}}
+{{% work-avoidance-with-gradle/local-build-caching-gradle-properties %}}
 ```
 
 When build caching is enabled, Gradle will additionally store the outputs of all cacheable tasks inside the Gradle user home directory.
 Now, following a `clean` or 
 
 ```shell
-{{% work-avoidance-with-gradle/local-build-example-output-1 %}}
+{{% work-avoidance-with-gradle/local-build-caching-output-1 %}}
 ```
 
 ```shell
-{{% work-avoidance-with-gradle/local-build-example-output-2 %}}
+{{% work-avoidance-with-gradle/local-build-caching-output-2 %}}
 ```
 
 #### Remote build caching
