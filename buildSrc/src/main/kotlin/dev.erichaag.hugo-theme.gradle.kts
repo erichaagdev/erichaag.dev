@@ -1,6 +1,11 @@
 @file:Suppress("HasPlatformType")
 
 import dev.erichaag.hugo.theme.HugoThemeExtension
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.creating
+import org.gradle.kotlin.dsl.named
+import org.gradle.kotlin.dsl.registering
+import org.gradle.kotlin.dsl.repositories
 
 plugins {
   id("base")

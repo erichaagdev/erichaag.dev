@@ -7,6 +7,11 @@ import dev.erichaag.hugo.HugoServe
 import dev.erichaag.hugo.HugoVersion
 import org.gradle.api.artifacts.type.ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE
 import org.gradle.api.attributes.Category.CATEGORY_ATTRIBUTE
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.creating
+import org.gradle.kotlin.dsl.getting
+import org.gradle.kotlin.dsl.named
+import org.gradle.kotlin.dsl.registering
 
 plugins {
   id("base")

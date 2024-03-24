@@ -1,6 +1,9 @@
 @file:Suppress("UnstableApiUsage", "HasPlatformType")
 
 import dev.erichaag.hugo.post.SnippetsDirectory
+import org.gradle.kotlin.dsl.creating
+import org.gradle.kotlin.dsl.named
+import org.gradle.kotlin.dsl.registering
 
 plugins {
   id("jvm-test-suite")

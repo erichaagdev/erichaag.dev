@@ -4,6 +4,9 @@ import dev.erichaag.firebase.FirebaseArtifactTransform
 import dev.erichaag.firebase.FirebaseDeploy
 import dev.erichaag.firebase.FirebaseExtension
 import dev.erichaag.firebase.FirebaseVersion
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.creating
+import org.gradle.kotlin.dsl.registering
 
 plugins {
   id("base")
