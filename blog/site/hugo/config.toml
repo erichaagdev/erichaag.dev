@@ -52,7 +52,7 @@ hugo = false
 title = "Eric Haag"
 
 [params.home.profile]
-avatarURL = "/images/avatar.png"
+avatarURL = "/images/avatar.jpg"
 subtitle = "Developer Productivity Engineering advocate with a passion for Java, Kotlin, Spring Boot, and Gradle."
 typeit = false
 
