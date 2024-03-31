@@ -1,9 +1,13 @@
 package dev.erichaag.hugo.theme
 
 import org.gradle.api.Project
+import org.gradle.api.provider.Provider
 
-abstract class HugoThemeExtension(private val project: Project) {
-  fun version(version: String) {
-    project.dependencies.add("loveItTheme", "dillonzq:LoveIt:$version@tar.gz")
+abstract class HugoThemeExtension(
+  private val project: Project,
+  private val configurationName: String,
+) {
+  fun version(version: Provider<String>) {
+    project.dependencies.add(configurationName, "dillonzq:LoveIt:${version.get()}@tar.gz")
   }
 }

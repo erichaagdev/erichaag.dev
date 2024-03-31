@@ -11,10 +11,14 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import javax.inject.Inject
+import org.gradle.api.tasks.UntrackedTask
+import org.gradle.process.ExecOperations
 
+@UntrackedTask(because = "Not worth tracking")
 abstract class FirebaseDeploy @Inject constructor(
+  execOperations: ExecOperations,
   private val fileSystemOperations: FileSystemOperations,
-) : AbstractFirebaseTask() {
+) : AbstractFirebaseTask(execOperations) {
 
   @get:Input
   abstract val projectName: Property<String>

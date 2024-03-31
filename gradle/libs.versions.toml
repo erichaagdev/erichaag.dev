@@ -1,0 +1,8 @@
+[versions]
+junit = "5.10.2"
+hugoTheme = "0.2.11"
+hugo = "0.109.0"
+firebase = "11.18.0"
+
+[libraries]
+junitJupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }

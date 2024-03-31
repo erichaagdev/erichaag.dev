@@ -4,11 +4,13 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.tasks.*
 import javax.inject.Inject
+import org.gradle.process.ExecOperations
 
 @CacheableTask
 abstract class HugoBuild @Inject constructor(
   private val fileSystemOperations: FileSystemOperations,
-) : AbstractHugoTask() {
+  execOperations: ExecOperations,
+) : AbstractHugoTask(execOperations) {
 
   @get:IgnoreEmptyDirectories
   @get:InputDirectory

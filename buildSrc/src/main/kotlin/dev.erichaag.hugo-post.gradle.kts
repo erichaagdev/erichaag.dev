@@ -1,26 +1,16 @@
-@file:Suppress("UnstableApiUsage", "HasPlatformType")
+@file:Suppress("UnstableApiUsage")
 
 import dev.erichaag.hugo.post.SnippetsDirectory
-import org.gradle.kotlin.dsl.creating
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.registering
 
 plugins {
   id("jvm-test-suite")
 }
 
-val hugoPostExports by configurations.creating {
-  isCanBeConsumed = true
-  isCanBeResolved = false
-  attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-post"))
-}
+val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 val snippetsDirectory = SnippetsDirectory(layout.buildDirectory.dir("snippets/$name"))
 val blogTest by testing.suites.creating(JvmTestSuite::class) {
-  useJUnitJupiter()
-  dependencies {
-    implementation(gradleTestKit())
-  }
+  useJUnitJupiter(libs.findVersion("junit").get().requiredVersion)
   targets.all {
     testTask.configure {
       jvmArgumentProviders.add(snippetsDirectory)
@@ -40,6 +30,7 @@ val processHugoPost by tasks.registering(Sync::class) {
   }
 }
 
-artifacts {
-  add(hugoPostExports.name, processHugoPost)
+val hugoPostConsumable = configurations.consumable("hugoPostConsumable") {
+  attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-post"))
+  outgoing.artifact(processHugoPost)
 }

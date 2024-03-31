@@ -4,9 +4,13 @@ import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.Provider
 import org.gradle.internal.os.OperatingSystem
 
-abstract class FirebaseExtension(private val project: Project) {
+abstract class FirebaseExtension(
+  private val project: Project,
+  private val configurationName: String,
+) {
 
   abstract val projectName: Property<String>
 
@@ -14,21 +18,7 @@ abstract class FirebaseExtension(private val project: Project) {
 
   abstract val configFile: RegularFileProperty
 
-  fun releasesRepository() = with(project.repositories) {
-    exclusiveContent {
-      forRepository {
-        ivy {
-          name = "Firebase Releases"
-          url = project.uri("https://github.com/firebase/firebase-tools")
-          patternLayout { artifact("/releases/download/v[revision]/firebase-tools-[classifier]") }
-          metadataSources { artifact() }
-        }
-      }
-      filter { includeModule("firebase", "firebase-tools") }
-    }
-  }
-
-  fun toolchainVersion(version: String) = with(project.dependencies) {
+  fun toolchainVersion(version: Provider<String>) = with(project.dependencies) {
     val os = OperatingSystem.current()
     val osFilenamePart = when {
       os.isWindows -> "win.exe"
@@ -36,6 +26,6 @@ abstract class FirebaseExtension(private val project: Project) {
       os.isLinux -> "linux"
       else -> throw IllegalStateException("A Firebase binary is not available for your operating system")
     }
-    add("firebaseExecutableConfiguration", "firebase:firebase-tools:$version:$osFilenamePart@firebase-download")
+    add(configurationName, "firebase:firebase-tools:${version.get()}:$osFilenamePart@firebase-download")
   }
 }

@@ -1,25 +1,19 @@
-@file:Suppress("HasPlatformType")
+@file:Suppress("UnstableApiUsage")
 
 import dev.erichaag.hugo.theme.HugoThemeExtension
-import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.creating
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.registering
-import org.gradle.kotlin.dsl.repositories
+import org.gradle.api.attributes.Category.CATEGORY_ATTRIBUTE
 
 plugins {
   id("base")
 }
 
-val hugoThemeExtension = extensions.create<HugoThemeExtension>("hugoTheme")
+val hugoThemeDeclarable = configurations.dependencyScope("hugoTheme").get()
 
-val hugoThemeExports by configurations.creating {
-  isCanBeConsumed = true
-  isCanBeResolved = false
-  attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named("hugo-theme"))
+val hugoThemeResolvable = configurations.resolvable("${hugoThemeDeclarable.name}Resolvable") {
+  extendsFrom(hugoThemeDeclarable)
 }
 
-val loveItTheme by configurations.creating
+val hugoThemeExtension = extensions.create<HugoThemeExtension>("hugoTheme", hugoThemeDeclarable.name)
 
 repositories {
   exclusiveContent {
@@ -38,7 +32,7 @@ repositories {
 val processHugoTheme by tasks.registering(Sync::class) {
   duplicatesStrategy = DuplicatesStrategy.FAIL
   into(layout.buildDirectory.dir("tasks/$name"))
-  from(loveItTheme.map { tarTree(it) }) {
+  from(hugoThemeResolvable.map { tarTree(it.singleFile) }) {
     exclude(
       "**/.babelrc",
       "**/.circleci/",
@@ -62,6 +56,7 @@ val processHugoTheme by tasks.registering(Sync::class) {
   }
 }
 
-artifacts {
-  add(hugoThemeExports.name, processHugoTheme)
+val hugoThemeConsumable = configurations.consumable("${hugoThemeDeclarable.name}Consumable") {
+  attributes.attribute(CATEGORY_ATTRIBUTE, objects.named("hugo-theme"))
+  outgoing.artifact(processHugoTheme)
 }

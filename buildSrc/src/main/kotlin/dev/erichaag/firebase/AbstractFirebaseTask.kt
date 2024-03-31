@@ -11,14 +11,13 @@ import org.gradle.process.ExecOperations
 import org.gradle.process.ExecSpec
 import javax.inject.Inject
 
-abstract class AbstractFirebaseTask : DefaultTask() {
+abstract class AbstractFirebaseTask @Inject constructor(
+  private val execOperations: ExecOperations
+): DefaultTask() {
 
   @get:PathSensitive(PathSensitivity.NONE)
   @get:InputFiles
   abstract val firebaseExecutable: Property<FileCollection>
-
-  @get:Inject
-  abstract val execOperations: ExecOperations
 
   init {
     group = "firebase"

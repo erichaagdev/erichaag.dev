@@ -1,8 +1,6 @@
-@file:Suppress("UnstableApiUsage")
-
 plugins {
-  id("dev.erichaag.firebase")
-  id("dev.erichaag.hugo")
+  id("dev.erichaag.firebase-deploy")
+  id("dev.erichaag.hugo-site")
 }
 
 dependencies {
@@ -11,13 +9,10 @@ dependencies {
 }
 
 hugo {
-  releasesRepository()
-  toolchainVersion("0.109.0")
+  toolchainVersion(libs.versions.hugo)
 }
 
 firebase {
-  releasesRepository()
-  toolchainVersion("11.18.0")
+  toolchainVersion(libs.versions.firebase)
   projectName = "erichaagdev"
-  publicDirectory = tasks.hugoBuild.flatMap { it.publicDirectory }
 }

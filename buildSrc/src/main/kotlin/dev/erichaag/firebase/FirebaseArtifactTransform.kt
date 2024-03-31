@@ -31,7 +31,11 @@ interface FirebaseArtifactTransform : TransformAction<TransformParameters.None> 
     fileSystemOperations.copy {
       from(firebaseExecutable)
       rename { outputFile.name }
-      eachFile { mode = 508 }
+      eachFile {
+        permissions {
+          unix("r-x------")
+        }
+      }
       into(outputFile.parentFile)
     }
   }

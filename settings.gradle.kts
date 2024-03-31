@@ -1,17 +1,8 @@
-@file:Suppress("UnstableApiUsage")
-
-enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 plugins {
-  id("com.gradle.enterprise") version "3.13"
-  id("com.gradle.common-custom-user-data-gradle-plugin") version "1.10"
-}
-
-dependencyResolutionManagement {
-  repositories {
-    mavenCentral()
-  }
+  id("com.gradle.enterprise") version "3.16.2"
+  id("com.gradle.common-custom-user-data-gradle-plugin") version "1.13"
 }
 
 gradleEnterprise {
