@@ -1,6 +1,6 @@
 ---
 title: Work Avoidance — Speed Up Gradle Builds by Doing No Work
-summary: In this article I explore the concept of work avoidance, a way to improve build speeds — by doing no work at all.
+summary: Explore the concept of work avoidance, a way to improve build speeds — by doing no work at all.
 categories: [ Gradle ]
 tags: [ build-optimization ]
 date: 2023-01-15T11:35:02-06:00
