@@ -2,8 +2,17 @@ package dev.erichaag.hugo
 
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileSystemOperations
-import org.gradle.api.tasks.*
 import javax.inject.Inject
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.IgnoreEmptyDirectories
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.options.Option
 import org.gradle.process.ExecOperations
 
 @CacheableTask
@@ -16,6 +25,10 @@ abstract class HugoBuild @Inject constructor(
   @get:InputDirectory
   @get:PathSensitive(PathSensitivity.RELATIVE)
   abstract val sourceDirectory: DirectoryProperty
+
+  @get:Input
+  @get:Option(option = "build-drafts", description = "Includes content marked as draft.")
+  abstract val buildDrafts: Property<Boolean>
 
   @get:OutputDirectory
   abstract val publicDirectory: DirectoryProperty
@@ -30,6 +43,7 @@ abstract class HugoBuild @Inject constructor(
       args("--destination", publicDirectory.get().asFile.path)
       args("--noBuildLock")
       args("--minify")
+      if (buildDrafts.get()) args("--buildDrafts")
     }
   }
 }

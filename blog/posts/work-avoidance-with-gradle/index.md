@@ -4,6 +4,7 @@ summary: In this article I explore the concept of work avoidance, a way to impro
 categories: [ Gradle ]
 tags: [ build-optimization ]
 date: 2023-01-15T11:35:02-06:00
+draft: true
 ---
 
 <!--more-->

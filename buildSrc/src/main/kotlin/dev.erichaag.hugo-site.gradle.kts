@@ -48,6 +48,7 @@ val hugoThemeResolvable = configurations.resolvable("${hugoThemeDeclarable.name}
 
 val buildHugoSite by tasks.registering(HugoBuild::class) {
   hugoExecutable = hugoExecutableResolvable
+  buildDrafts.convention(false)
   publicDirectory = layout.buildDirectory.dir("hugo/public")
   sourceDirectory.fileProvider(processHugo.map { it.destinationDir })
 }
@@ -58,6 +59,7 @@ val printHugoVersion by tasks.registering(HugoVersion::class) {
 
 val serveHugoSite by tasks.registering(HugoServe::class) {
   hugoExecutable = hugoExecutableResolvable
+  buildDrafts.convention(false)
   sourceDirectory.fileProvider(processHugo.map { it.destinationDir })
 }
 
