@@ -16,6 +16,7 @@ gradleEnterprise {
 
 include(":blog:site")
 include(":blog:theme")
+include(":blog:posts:spring-initializr-gradle-build-improvements")
 include(":blog:posts:work-avoidance-with-gradle")
 
 rootProject.name = "erichaagdev"

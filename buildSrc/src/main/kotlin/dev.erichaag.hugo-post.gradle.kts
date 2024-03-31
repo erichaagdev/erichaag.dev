@@ -3,6 +3,7 @@
 import dev.erichaag.hugo.post.SnippetsDirectory
 
 plugins {
+  id("dev.erichaag.kotlin")
   id("jvm-test-suite")
 }
 
