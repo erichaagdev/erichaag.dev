@@ -3,7 +3,7 @@ firebase = "13.6.0"
 hugo = "0.124.1"
 hugoTheme = "0.2.11"
 junit = "5.10.2"
-springBoot = "3.0.0"
+springBoot = "3.2.4"
 
 [libraries]
 junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
