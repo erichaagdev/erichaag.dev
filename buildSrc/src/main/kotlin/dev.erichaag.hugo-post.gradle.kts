@@ -1,5 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
+import dev.erichaag.hugo.post.HugoPostExtension
 import dev.erichaag.hugo.post.SnippetsDirectory
 
 plugins {
@@ -7,6 +8,7 @@ plugins {
   id("jvm-test-suite")
 }
 
+val hugoPostExtension = extensions.create<HugoPostExtension>("hugoPost")
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 val snippetsDirectory = SnippetsDirectory(layout.buildDirectory.dir("snippets/$name"))
@@ -21,10 +23,18 @@ val blogTest by testing.suites.creating(JvmTestSuite::class) {
 
 val processHugoPost by tasks.registering(Sync::class) {
   dependsOn(blogTest)
+  val substitutions = hugoPostExtension.substitutions
+  inputs.property("substitutions", substitutions)
   duplicatesStrategy = DuplicatesStrategy.FAIL
   into(layout.buildDirectory.dir("tasks/$name"))
   into("content/posts/${project.name}") {
-    from(layout.projectDirectory.file("index.md"))
+    from(layout.projectDirectory.file("index.md")) {
+      eachFile {
+        expand(substitutions.get()) {
+          escapeBackslash = true
+        }
+      }
+    }
   }
   into("layouts/shortcodes/${project.name}") {
     from(snippetsDirectory.value)

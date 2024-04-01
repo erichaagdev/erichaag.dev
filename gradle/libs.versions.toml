@@ -1,8 +1,10 @@
 [versions]
-junit = "5.10.2"
-hugoTheme = "0.2.11"
-hugo = "0.124.1"
 firebase = "13.6.0"
+hugo = "0.124.1"
+hugoTheme = "0.2.11"
+junit = "5.10.2"
+springBoot = "3.0.0"
 
 [libraries]
-junitJupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+springBoot = { module = "org.springframework.boot:spring-boot", version.ref = "springBoot" }
