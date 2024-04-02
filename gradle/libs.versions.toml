@@ -9,6 +9,8 @@ junit = "5.10.2"
 springBoot = "3.2.4"
 springCloud = "2023.0.1"
 springDependencyManagementGradlePlugin = "1.1.4"
+wrapperUpgrade = "0.11.4"
+
 
 [libraries]
 apacheCommonsText = { module = "org.apache.commons:commons-text", version.ref = "apacheCommonsText" }
@@ -18,3 +20,6 @@ junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 springBootDependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "springBoot" }
 springCloudDependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "springCloud" }
 springDependencyManagementGradlePlugin = { module = "io.spring.dependency-management:io.spring.dependency-management.gradle.plugin", version.ref = "springDependencyManagementGradlePlugin" }
+
+[plugins]
+wrapperUpgrade = { id = "org.gradle.wrapper-upgrade", version.ref = "wrapperUpgrade" }
