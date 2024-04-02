@@ -1,4 +1,4 @@
-name: Build & deploy
+name: Deploy to Firebase
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_deploy:
-    name: Build & deploy
+  firebase_deploy:
+    name: Deploy to Firebase
     runs-on: ubuntu-latest
     environment: Production
     steps:
@@ -20,5 +20,5 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
-      - name: Build & deploy
+      - name: Deploy to Firebase
         run: ./gradlew deployFirebase
