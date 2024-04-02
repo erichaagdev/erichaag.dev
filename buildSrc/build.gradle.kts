@@ -8,4 +8,5 @@ repositories {
 
 dependencies {
   implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$embeddedKotlinVersion")
+  implementation(libs.apacheCommonsText)
 }

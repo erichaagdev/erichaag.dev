@@ -36,7 +36,7 @@ Here's a minimal example of a `build.gradle.kts`  for a Spring Boot project usin
 ```kotlin
 plugins {
     java
-    id("org.springframework.boot") version "${springBootVersion}"
+    id("org.springframework.boot") version "#{:springBootVersion}"
 }
 
 repositories {
@@ -44,7 +44,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter:#{:springBootVersion}")
 }
 ```
 
@@ -67,7 +67,7 @@ You can simply run the following command after generating your project:
 Newly generated projects will be generated with a newer version than Gradle 8.1, but if you happen to already be on a lower version you'll have to specify the version when upgrading the Wrapper:
 
 ```
-./gradlew wrapper --gradle-version 8.1
+./gradlew wrapper --gradle-version #{:gradleVersion}
 ```
 
 As an added layer of security, I also recommend [configuring distribution checksum verification](https://docs.gradle.org/current/userguide/gradle_wrapper.html#configuring_checksum_verification) which will fail the build if the configured checksum does not match the checksum for the Gradle distribution you're downloading.
@@ -89,8 +89,8 @@ Add the following to your `settings.gradle.kts` to configure build scans for you
 
 ```kotlin
 plugins {
-    id("com.gradle.enterprise") version "3.16.2"
-    id("com.gradle.common-custom-user-data-gradle-plugin") version "1.13"
+    id("com.gradle.enterprise") version "#{:develocityGradlePluginVersion}"
+    id("com.gradle.common-custom-user-data-gradle-plugin") version "#{:commonCustomUserDataGradlePluginVersion}"
 }
 
 gradleEnterprise {
@@ -199,10 +199,10 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 plugins {
     java
-    id("org.springframework.boot") version "${springBootVersion}"
+    id("org.springframework.boot") version "#{:springBootVersion}"
     
     // Delete this - it's no longer necessary!
-    //id("io.spring.dependency-management") version "1.1.4"
+    //id("io.spring.dependency-management") version "#{:springDependencyManagementGradlePlugin}"
 }
 
 dependencies {
@@ -212,7 +212,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
 
     // If you're using a Spring Cloud dependency you can import its BOM too
-    implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2023.0.1"))
+    implementation(platform("org.springframework.cloud:spring-cloud-dependencies:#{:springCloudVersion}"))
 }
 ```
 

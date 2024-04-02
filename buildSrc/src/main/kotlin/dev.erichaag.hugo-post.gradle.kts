@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import dev.erichaag.hugo.post.HugoPostExtension
+import dev.erichaag.hugo.post.ProcessHugoPost
 import dev.erichaag.hugo.post.SnippetsDirectory
 
 plugins {
@@ -11,34 +12,23 @@ plugins {
 val hugoPostExtension = extensions.create<HugoPostExtension>("hugoPost")
 val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-val snippetsDirectory = SnippetsDirectory(layout.buildDirectory.dir("snippets/$name"))
+val snippetsDirectoryArgumentProvider = SnippetsDirectory(layout.buildDirectory.dir("snippets/$name"))
 val blogTest by testing.suites.creating(JvmTestSuite::class) {
   useJUnitJupiter(libs.findVersion("junit").get().requiredVersion)
   targets.all {
     testTask.configure {
-      jvmArgumentProviders.add(snippetsDirectory)
+      jvmArgumentProviders.add(snippetsDirectoryArgumentProvider)
     }
   }
 }
 
-val processHugoPost by tasks.registering(Sync::class) {
+val processHugoPost by tasks.registering(ProcessHugoPost::class) {
   dependsOn(blogTest)
-  val substitutions = hugoPostExtension.substitutions
-  inputs.property("substitutions", substitutions)
-  duplicatesStrategy = DuplicatesStrategy.FAIL
-  into(layout.buildDirectory.dir("tasks/$name"))
-  into("content/posts/${project.name}") {
-    from(layout.projectDirectory.file("index.md")) {
-      eachFile {
-        expand(substitutions.get()) {
-          escapeBackslash = true
-        }
-      }
-    }
-  }
-  into("layouts/shortcodes/${project.name}") {
-    from(snippetsDirectory.value)
-  }
+  index = layout.projectDirectory.file("index.md")
+  contentPath = provider { project.name }
+  substitutions = hugoPostExtension.substitutions
+  snippetsDirectory = snippetsDirectoryArgumentProvider.value
+  outputDirectory = layout.buildDirectory.dir("tasks/$name")
 }
 
 val hugoPostConsumable = configurations.consumable("hugoPostConsumable") {
