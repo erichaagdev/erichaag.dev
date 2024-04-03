@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
   hugoTheme(projects.blog.theme)
-  hugoPost(projects.blog.posts.springInitializrGradleBuildImprovements)
+  hugoPost(projects.blog.posts.bootifulBuildsGradleTipsForSpringBoot)
   hugoPost(projects.blog.posts.workAvoidanceWithGradle)
 }
 

@@ -1,8 +1,8 @@
 ---
-title: Immediate Gradle improvements to any Spring Boot build
-summary: Immediate improvements you can make to the Gradle build of your Spring Boot project following the Spring Initializr. 
+title: Bootiful Builds — Gradle Tips for Spring Boot Projects
+summary: A look at the latest features and general best practices for building "bootiful" Spring Boot projects with Gradle.
 categories: [ Gradle ]
-tags: [ build-optimization, spring, spring-boot, spring-initializr ]
+tags: [ gradle, spring, spring-boot, spring-initializr, build-optimization, best-practices ]
 date: 2024-03-31T00:00:00-06:00
 ---
 
