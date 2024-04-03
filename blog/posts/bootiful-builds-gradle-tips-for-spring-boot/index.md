@@ -214,3 +214,26 @@ dependencies {
 ```
 
 You can learn more about platforms and BOM support in the Gradle documentation: https://docs.gradle.org/current/userguide/platforms.html#sub:bom_import
+
+### 8. Auto-provision Java using toolchains
+
+You can define the Java toolchain to use by adding the following to your `build.gradle.kts`:
+
+```kotlin
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(#{:java})
+    vendor = JvmVendorSpec.ADOPTIUM
+  }
+}
+```
+
+In order to auto-provision JDKs using the [Foojay Toolchains Resolver plugin](https://github.com/gradle/foojay-toolchains), you can add the following to your `settings.gradle.kts`:
+
+```kotlin
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "#{:foojayResolverConvention}"
+}
+```
+
+You can learn more about Java toolchains in the Gradle documentation: https://docs.gradle.org/current/userguide/toolchains.html
