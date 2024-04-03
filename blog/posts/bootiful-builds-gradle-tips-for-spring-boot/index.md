@@ -56,21 +56,20 @@ You can learn more about the Kotlin DSL in the Gradle documentation: https://doc
 
 Projects generated using the Spring Initializr do not always come with the latest version of Gradle.
 The first thing I do _after_ I generate a new project is upgrade the Gradle Wrapper to the latest version.
+As an added layer of security, I also recommend [configuring distribution checksum verification](https://docs.gradle.org/current/userguide/gradle_wrapper.html#configuring_checksum_verification) which will fail the build if the configured checksum does not match the checksum for the Gradle distribution you're downloading.
 
 As of Gradle 8.1, upgrading the Wrapper to the latest version is easy.
 You can simply run the following command after generating your project:
 
-```
-./gradlew wrapper --gradle-version latest
+```shell
+./gradlew wrapper --gradle-version=latest --gradle-distribution-sha256-sum=#{:gradleDistributionSha256Sum}
 ```
 
 Newly generated projects will be generated with a newer version than Gradle 8.1, but if you happen to already be on a lower version you'll have to specify the version when upgrading the Wrapper:
 
+```shell
+./gradlew wrapper --gradle-version=#{:gradleVersion} --gradle-distribution-sha256-sum=#{:gradleDistributionSha256Sum}
 ```
-./gradlew wrapper --gradle-version #{:gradleVersion}
-```
-
-As an added layer of security, I also recommend [configuring distribution checksum verification](https://docs.gradle.org/current/userguide/gradle_wrapper.html#configuring_checksum_verification) which will fail the build if the configured checksum does not match the checksum for the Gradle distribution you're downloading.
 
 You can learn more about the Gradle Wrapper in the Gradle documentation: https://docs.gradle.org/current/userguide/gradle_wrapper.html
 
