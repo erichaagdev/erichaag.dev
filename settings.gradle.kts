@@ -14,7 +14,7 @@ develocity {
 }
 
 include(":blog:site")
-include(":blog:posts:bootiful-builds-gradle-tips-for-spring-boot")
+include(":blog:posts:bootiful-builds-best-practices-spring-boot-gradle")
 include(":blog:posts:work-avoidance-with-gradle")
 
 rootProject.name = "erichaagdev"

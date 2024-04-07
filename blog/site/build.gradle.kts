@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-  hugoPost(projects.blog.posts.bootifulBuildsGradleTipsForSpringBoot)
+  hugoPost(projects.blog.posts.bootifulBuildsBestPracticesSpringBootGradle)
   hugoPost(projects.blog.posts.workAvoidanceWithGradle)
 }
 
