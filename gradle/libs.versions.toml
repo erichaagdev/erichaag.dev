@@ -1,6 +1,6 @@
 [versions]
 apacheCommonsText = "1.11.0"
-commonCustomUserData = "2"
+commonCustomUserData = "2.0"
 develocity = "3.17"
 firebase = "13.6.0"
 foojayResolverConvention = "0.8.0"
@@ -21,7 +21,7 @@ springCloudDependencies = { module = "org.springframework.cloud:spring-cloud-dep
 
 [plugins]
 commonCustomUserData = { id = "com.gradle.common-custom-user-data-gradle-plugin", version.ref = "commonCustomUserData" }
-develocity = { id = "com.gradle.enterprise", version.ref = "develocity" }
+develocity = { id = "com.gradle.develocity", version.ref = "develocity" }
 foojayResolverConvention = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "foojayResolverConvention" }
 springDependencyManagement = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
 wrapperUpgrade = { id = "org.gradle.wrapper-upgrade", version.ref = "wrapperUpgrade" }

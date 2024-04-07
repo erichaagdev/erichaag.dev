@@ -83,11 +83,11 @@ Add the following to your `settings.gradle.kts` to configure build scans for you
 
 ```kotlin
 plugins {
-    id("com.gradle.enterprise") version "#{:develocityGradlePluginVersion}"
+    id("com.gradle.develocity") version "#{:develocityGradlePluginVersion}"
     id("com.gradle.common-custom-user-data-gradle-plugin") version "#{:commonCustomUserDataGradlePluginVersion}"
 }
 
-gradleEnterprise {
+develocity {
     buildScan {
         publishAlways()
         isUploadInBackground = !System.getenv().containsKey("CI")
