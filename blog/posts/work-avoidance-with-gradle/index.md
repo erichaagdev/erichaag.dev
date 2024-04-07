@@ -4,6 +4,7 @@ summary: Explore the concept of work avoidance, a way to improve build speeds â€
 categories: [ Gradle ]
 tags: [ build-optimization ]
 date: 2023-01-15T11:35:02-06:00
+author: Eric Haag
 draft: true
 ---
 

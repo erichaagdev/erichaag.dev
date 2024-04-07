@@ -4,6 +4,7 @@ summary: A look at the latest features and general best practices for building "
 categories: [ Gradle ]
 tags: [ gradle, spring, spring-boot, spring-initializr, build-optimization, best-practices ]
 date: 2024-03-31T00:00:00-06:00
+author: Eric Haag
 ---
 
 ## Introduction
