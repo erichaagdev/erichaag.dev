@@ -5,6 +5,9 @@ theme = "hugo-profile"
 Paginate = 3
 enableRobotsTXT = true
 
+[services.googleAnalytics]
+ID = "G-HQ6GQ1GRQR"
+
 [markup.goldmark.renderer]
 unsafe = true
 
