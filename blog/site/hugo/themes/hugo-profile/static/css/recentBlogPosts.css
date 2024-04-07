@@ -1,0 +1,63 @@
+#recent-posts a h5 {
+    color: var(--text-color) !important;
+}
+
+#recent-posts a {
+  text-decoration: none;
+  color: var(--text-secondary-color) !important;
+}
+
+#recent-posts a:hover {
+  color: var(--primary-color) !important;
+}
+
+#recent-posts .card {
+    background-color: var(--secondary-color) !important;
+    border-radius: .75rem;
+    overflow: hidden;
+    border: none;
+}
+
+#recent-posts .card:hover {
+    transition: all 0.3s ease-out;
+    transform: translateY(-7px);
+}
+
+#recent-posts .card-text * {
+    background-color: var(--secondary-color) !important;
+}
+
+#recent-posts .card-footer {
+    background-color: var(--background-color) !important;
+    padding: .8em .7em;
+    border: 1px solid var(--secondary-color);
+}
+
+#recent-posts .card-footer a {
+    color: var(--text-secondary-color) !important;
+    border-color: var(--primary-color) !important;
+    transition: none;
+    background-color: var(--background-color) !important;
+}
+
+#recent-posts .card-footer a:hover {
+    color: var(--primary-color) !important;
+    opacity: 0.8;
+}
+
+#recent-posts .card-footer a:focus {
+    box-shadow: none !important;
+}
+
+#recent-posts .card > .card-header {
+    padding: 0 !important;
+    border: none !important;
+    background-color: var(--secondary-color) !important;
+}
+
+#recent-posts .card > .card-header .card-img-top {
+    width: 100%;
+    height: 250px !important;
+    object-fit: cover;
+    background-color: transparent !important;
+}

@@ -37,15 +37,6 @@ val hugoPostResolvable = configurations.resolvable("${hugoPostDeclarable.name}Re
   attributes.attribute(CATEGORY_ATTRIBUTE, objects.named("hugo-post"))
 }
 
-val hugoThemeDeclarable = configurations.dependencyScope("hugoTheme") {
-  attributes.attribute(CATEGORY_ATTRIBUTE, objects.named("hugo-theme"))
-}.get()
-
-val hugoThemeResolvable = configurations.resolvable("${hugoThemeDeclarable.name}Resolvable") {
-  extendsFrom(hugoThemeDeclarable)
-  attributes.attribute(CATEGORY_ATTRIBUTE, objects.named("hugo-theme"))
-}
-
 val buildHugoSite by tasks.registering(HugoBuild::class) {
   hugoExecutable = hugoExecutableResolvable
   buildDrafts.convention(false)
@@ -83,7 +74,6 @@ val processHugo by tasks.registering(Sync::class) {
   into("") {
     from(layout.projectDirectory.dir("hugo"))
     from(hugoPostResolvable)
-    from(hugoThemeResolvable)
   }
 }
 
