@@ -121,7 +121,7 @@ You can also configure [a _remote_ build cache](https://docs.gradle.org/current/
 
 You can enable build caching by invoking Gradle with the `--build-cache` command line option, or enable it permanently by adding the following property to your `gradle.properties` file:
 
-```properties
+```
 org.gradle.caching=true
 ```
 
@@ -135,7 +135,7 @@ This is one of the easiest and lowest effort ways to speed up your build.
 
 You can enable parallel execution by invoking Gradle with the `--parallel` command line parameter, or enable it permanently by adding the following property to your `gradle.properties` file: 
 
-```properties
+```
 org.gradle.parallel=true
 ```
 
@@ -161,13 +161,13 @@ Unlike parallel execution, enabling the configuration cache allows non-dependant
 
 You can enable the configuration cache by invoking Gradle with the `--configuration-cache` command line parameter, or enable it permanently by adding the following property to your `gradle.properties` file:
 
-```properties
+```
 org.gradle.configuration-cache=true
 ```
 
 Until Gradle 8.1 the configuration cache was an experimental feature, so if you're on an older version you will need to use a different property:
 
-```properties
+```
 org.gradle.unsafe.configuration-cache=true
 ```
 

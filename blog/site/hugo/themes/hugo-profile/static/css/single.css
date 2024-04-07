@@ -96,17 +96,21 @@
 
 /* code */
 
+code.hljs {
+  background: var(--secondary-background-color) !important;
+}
+
 #single .page-content pre {
   border-radius: 0.7em !important;
   margin: 5px;
-  margin-bottom: 2em;
-  padding: 2em;
-  background-color: var(--secondary-color) !important;
+  margin-bottom: 1.3em;
+  padding: .5em;
+  background-color: var(--secondary-background-color) !important;
   color: var(--text-secondary-color) !important;
-  max-height: 450px;
 }
 
 #single .page-content pre > code {
+  border-radius: 0.7em !important;
   color: var(--text-secondary-color) !important;
 }
 
@@ -156,6 +160,12 @@
 #single .sticky-sidebar ::-webkit-scrollbar {
     height: 0px;
     width: 8px;
+}
+
+#single pre ::-webkit-scrollbar {
+    height: 8px;
+    width: 0px;
+    background-color: var(--secondary-background-color);
 }
 
 /* Tags */

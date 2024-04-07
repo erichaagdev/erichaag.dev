@@ -18,6 +18,19 @@
 <!-- font configuration -->
 <link rel="stylesheet" href="{{ .Site.Params.staticPath }}/css/font.css" media="all">
 
+<!-- code blocks & syntax highlighting -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<link id="catppuccin-highlightjs-stylesheet" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"/>
+
+<script>
+    hljs.highlightAll()
+    hljs.addPlugin(new CopyButtonPlugin())
+</script>
+
 <!-- Internal templates -->
 {{ template "_internal/google_analytics.html" . }}
 {{ template "_internal/opengraph.html" . }}
