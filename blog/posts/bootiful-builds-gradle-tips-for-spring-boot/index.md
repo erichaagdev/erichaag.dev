@@ -90,10 +90,9 @@ plugins {
 
 develocity {
     buildScan {
-        publishAlways()
-        isUploadInBackground = !System.getenv().containsKey("CI")
-        termsOfServiceAgree = "yes"
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        uploadInBackground = !System.getenv().containsKey("CI")
+        termsOfUseAgree = "yes"
+        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
     }
 }
 ```
