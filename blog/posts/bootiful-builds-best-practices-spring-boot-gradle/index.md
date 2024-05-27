@@ -52,7 +52,7 @@ dependencies {
 
 Kotlin is interoperable with Java and [fully compatible with Spring Boot](https://spring.io/guides/tutorials/spring-boot-kotlin), so it's a great language to use for writing your Spring Boot applications too!
 
-You can learn more about the Kotlin DSL in the Gradle documentation: https://docs.gradle.org/current/userguide/kotlin_dsl.html
+You can learn more about [the Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html) in the Gradle documentation.
 
 ### 2. Upgrade Gradle to the latest version
 
@@ -71,7 +71,7 @@ The first run will update the `gradle-wrapper.properties` file while the second 
 ./gradlew wrapper --gradle-version=#{:gradleVersion} --gradle-distribution-sha256-sum=#{:gradleDistributionSha256Sum}
 ```
 
-You can learn more about the Gradle Wrapper in the Gradle documentation: https://docs.gradle.org/current/userguide/gradle_wrapper.html
+You can learn more about [the Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) in the Gradle documentation.
 
 ### 3. Publish Gradle build scans
 
@@ -104,7 +104,7 @@ Gradle also offers a paid version of build scans called [Develocity](https://gra
 In fact, Gradle partners with [the Spring team and other OSS projects](https://gradle.com/customers/oss-projects/) to provide them with free instances of Develocity.
 The Spring team's Develocity instance is publicly visible, and you can check it out for yourself at [ge.spring.io](https://ge.spring.io/).
 
-You can learn more about build scans on Gradle's website: https://scans.gradle.com/
+You can learn more about [build scans](https://scans.gradle.com/) on Gradle's website.
 
 ### 4. Enable build caching
 
@@ -128,7 +128,7 @@ You can enable build caching by invoking Gradle with the `--build-cache` command
 org.gradle.caching=true
 ```
 
-You can learn more about build caching in the Gradle documentation: https://docs.gradle.org/current/userguide/build_cache.html
+You can learn more about [build caching](https://docs.gradle.org/current/userguide/build_cache.html) in the Gradle documentation.
 
 ### 5. Enable parallel execution
 
@@ -142,9 +142,9 @@ You can enable parallel execution by invoking Gradle with the `--parallel` comma
 org.gradle.parallel=true
 ```
 
-You can learn more about parallel execution in the Gradle documentation: https://docs.gradle.org/current/userguide/performance.html#parallel_execution
+You can learn more about [parallel execution](https://docs.gradle.org/current/userguide/performance.html#parallel_execution) in the Gradle documentation.
 
-### 6. Enable configuration cache
+### 6. Enable configuration caching
 
 A Gradle build is broken up into three distinct phases: initialization, configuration, and execution.
 
@@ -162,7 +162,7 @@ Any change to the build will invalidate the configuration cache, requiring the c
 As an added bonus, the configuration cache brings [a finer-grained parallelism model](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:intro:performance_improvements) than parallel execution.
 Unlike parallel execution, enabling the configuration cache allows non-dependant tasks **from the same project** to run in parallel.
 
-You can enable the configuration cache by invoking Gradle with the `--configuration-cache` command line parameter, or enable it permanently by adding the following property to your `gradle.properties` file:
+You can enable configuration caching by invoking Gradle with the `--configuration-cache` command line parameter, or enable it permanently by adding the following property to your `gradle.properties` file:
 
 ```
 org.gradle.configuration-cache=true
@@ -174,7 +174,7 @@ Until Gradle 8.1 the configuration cache was an experimental feature, so if you'
 org.gradle.unsafe.configuration-cache=true
 ```
 
-You can learn more about the configuration cache in the Gradle documentation: https://docs.gradle.org/current/userguide/configuration_cache.html
+You can learn more about [configuration caching](https://docs.gradle.org/current/userguide/configuration_cache.html) in the Gradle documentation.
 
 ### 7. Replace `io.spring.dependency-management` with a Gradle platform
 
@@ -216,7 +216,7 @@ dependencies {
 }
 ```
 
-You can learn more about platforms and BOM support in the Gradle documentation: https://docs.gradle.org/current/userguide/platforms.html#sub:bom_import
+You can learn more about [platforms and BOM support](https://docs.gradle.org/current/userguide/platforms.html#sub:bom_import) in the Gradle documentation.
 
 ### 8. Auto-provision Java using toolchains
 
@@ -249,7 +249,7 @@ plugins {
 }
 ```
 
-You can learn more about Java toolchains in the Gradle documentation: https://docs.gradle.org/current/userguide/toolchains.html
+You can learn more about [Java toolchains](https://docs.gradle.org/current/userguide/toolchains.html) in the Gradle documentation.
 
 ### 9. Organize tests using test suites
 
@@ -294,7 +294,7 @@ tasks.check {
 }
 ```
 
-You can learn more about test suites in the Gradle documentation: https://docs.gradle.org/current/userguide/jvm_test_suite_plugin.html
+You can learn more about [test suites](https://docs.gradle.org/current/userguide/jvm_test_suite_plugin.html) in the Gradle documentation.
 
 ### 10. Centralize dependencies using version catalogs
 
@@ -348,7 +348,7 @@ val springBootTest by testing.suites.creating(JvmTestSuite::class) {
 
 It's worth mentioning that GitHub's [Dependabot](https://docs.github.com/en/code-security/dependabot) understands and can parse version catalogs to ensure the dependencies declared there remain up-to-date.
 
-You can learn more about version catalogs in the Gradle documentation: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
+You can learn more about [version catalogs](https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog) in the Gradle documentation.
 
 ### 11. Organize your build logic using convention plugins
 
@@ -495,7 +495,7 @@ Convention plugins are a great way to cut down on duplication of build logic, bu
 As a rule of thumb, avoid convention plugins until the moment you copy and paste something from one build file to another.
 When that happens, it may be time to introduce a convention plugin.
 
-You can learn more about project organization and convention plugins in the Gradle documentation: https://docs.gradle.org/current/userguide/organizing_gradle_projects.html
+You can learn more about [build organization and convention plugins](https://docs.gradle.org/current/userguide/organizing_gradle_projects.html) in the Gradle documentation.
 
 ## Conclusion
 
