@@ -16,7 +16,7 @@ val snippetsDirectoryArgumentProvider = SnippetsDirectory(layout.buildDirectory.
 val blogTest by testing.suites.creating(JvmTestSuite::class) {
   useJUnitJupiter(libs.findVersion("junit").get().requiredVersion)
   targets.all {
-    testTask.configure {
+    testTask {
       jvmArgumentProviders.add(snippetsDirectoryArgumentProvider)
     }
   }
