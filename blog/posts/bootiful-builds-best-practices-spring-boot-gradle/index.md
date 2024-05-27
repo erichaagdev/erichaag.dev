@@ -3,7 +3,7 @@ title: Bootiful Builds — Best Practices for Building Spring Boot Apps with Gra
 summary: A look at the latest features and general best practices for building "bootiful" Spring Boot applications with Gradle.
 categories: [ Gradle ]
 tags: [ gradle, spring, spring-boot, spring-initializr, build-optimization, best-practices ]
-date: 2024-03-31T00:00:00-06:00
+date: 2024-05-27T18:00:00-05:00
 author: Eric Haag
 ---
 
