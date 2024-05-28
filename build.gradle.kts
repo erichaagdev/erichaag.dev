@@ -7,8 +7,8 @@ wrapperUpgrade {
     register("root") {
       repo = "erichaagdev/erichaag.dev"
     }
-    register("example-bootiful-builds") {
-      dir = "blog/posts/bootiful-builds-best-practices-spring-boot-gradle/example"
+    register("bootiful-builds-example-mightycon") {
+      dir = "blog/posts/bootiful-builds-best-practices-spring-boot-gradle/example-mightycon"
       repo = "erichaagdev/erichaag.dev"
     }
   }
