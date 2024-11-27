@@ -8,7 +8,7 @@ hugo = "0.124.1"
 java = "21"
 junit = "5.11.3"
 springBoot = "3.4.0"
-springCloud = "2023.0.3"
+springCloud = "2023.0.4"
 springDependencyManagement = "1.1.6"
 wrapperUpgrade = "0.11.4"
 
