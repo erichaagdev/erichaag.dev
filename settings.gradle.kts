@@ -1,7 +1,7 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 plugins {
-  id("com.gradle.develocity") version "3.18.2"
+  id("com.gradle.develocity") version "3.19"
   id("com.gradle.common-custom-user-data-gradle-plugin") version "2.0.2"
 }
 
