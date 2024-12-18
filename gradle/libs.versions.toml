@@ -9,7 +9,7 @@ java = "21"
 junit = "5.11.4"
 springBoot = "3.4.0"
 springCloud = "2024.0.0"
-springDependencyManagement = "1.1.6"
+springDependencyManagement = "1.1.7"
 wrapperUpgrade = "0.12"
 
 [libraries]
