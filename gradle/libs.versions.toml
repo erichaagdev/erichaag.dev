@@ -1,5 +1,5 @@
 [versions]
-apacheCommonsText = "1.13.1"
+apacheCommonsText = "1.14.0"
 commonCustomUserData = "2.3"
 develocity = "4.1"
 firebase = "13.6.0"
