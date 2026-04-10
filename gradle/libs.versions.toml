@@ -1,6 +1,6 @@
 [versions]
 apacheCommonsText = "1.15.0"
-commonCustomUserData = "2.5.0"
+commonCustomUserData = "2.6.0"
 develocity = "4.4.0"
 firebase = "13.6.0"
 foojayResolverConvention = "1.0.0"
